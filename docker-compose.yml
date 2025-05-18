@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  user-service:
+    build: ./user-service
+    ports:
+      - "50051:50051"
+    depends_on:
+      - mongo
+
+  car-service:
+    build: ./car-service
+    ports:
+      - "50053:50053"
+    depends_on:
+      - mongo
+
+  rental-service:
+    build: ./rental-service
+    ports:
+      - "50052:50052"
+    depends_on:
+      - mongo
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - user-service
+      - car-service
+      - rental-service
+
+volumes:
+  mongo-data:

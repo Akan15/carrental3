@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package car;
+
+option go_package = "github.com/Akan15/carrental3/car-service/proto;car";
+
+service CarService {
+  rpc GetCar (GetCarRequest) returns (GetCarResponse);
+}
+
+message GetCarRequest {
+  string id = 1;
+}
+
+message GetCarResponse {
+  string id = 1;
+  string brand = 2;
+  string model = 3;
+}

@@ -1,6 +1,6 @@
 package repository
 
-import "user-service/internal/models"
+import "github.com/Akan15/carrental3/user-service/internal/models"
 
 type UserRepository interface {
 	GetUserByID(id string) (*models.User, error)

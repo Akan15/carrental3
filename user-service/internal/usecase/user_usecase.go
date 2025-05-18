@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"user-service/internal/models"
-	"user-service/internal/repository"
+	"github.com/Akan15/carrental3/user-service/internal/models"
+	"github.com/Akan15/carrental3/user-service/internal/repository"
 )
 
 type UserUseCase struct {

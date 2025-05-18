@@ -2,8 +2,9 @@ package handlers
 
 import (
 	"context"
-	"user-service/internal/usecase"
-	pb "user-service/proto"
+
+	"github.com/Akan15/carrental3/user-service/internal/usecase"
+	pb "github.com/Akan15/carrental3/user-service/proto"
 )
 
 type UserHandler struct {
@@ -20,7 +21,6 @@ func (h *UserHandler) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.
 	if err != nil || user == nil {
 		return nil, err
 	}
-
 	return &pb.GetUserResponse{
 		Id:    user.ID,
 		Name:  user.Name,

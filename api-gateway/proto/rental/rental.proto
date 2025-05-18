@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package rental;
+
+option go_package = "rental-service/proto;rental";
+
+service RentalService {
+  rpc GetRental(GetRentalRequest) returns (GetRentalResponse);
+}
+
+message GetRentalRequest {
+  string id = 1;
+}
+
+message GetRentalResponse {
+  string id = 1;
+  string userId = 2;
+  string carId = 3;
+  string startTime = 4;
+  string endTime = 5;
+}

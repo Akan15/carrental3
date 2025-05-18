@@ -4,12 +4,13 @@ import (
 	"log"
 	"net"
 
-	"user-service/internal/handlers"
-	"user-service/internal/repository"
-	"user-service/internal/usecase"
-	pb "user-service/proto"
+	"github.com/Akan15/carrental3/user-service/internal/handlers"
+	"github.com/Akan15/carrental3/user-service/internal/repository"
+	"github.com/Akan15/carrental3/user-service/internal/usecase"
+	pb "github.com/Akan15/carrental3/user-service/proto"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 func main() {
@@ -24,6 +25,9 @@ func main() {
 
 	grpcServer := grpc.NewServer()
 	pb.RegisterUserServiceServer(grpcServer, handler)
+
+	// 👉 Включаем reflection
+	reflection.Register(grpcServer)
 
 	log.Println("UserService is running on port :50051")
 	if err := grpcServer.Serve(lis); err != nil {
