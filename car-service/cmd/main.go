@@ -19,17 +19,18 @@ func main() {
 		log.Fatalf("Failed to listen: %v", err)
 	}
 
-	repo := repository.NewInMemoryCarRepo()
+	db := repository.InitMongo()
+	repo := repository.NewMongoCarRepo(db)
+
 	uc := usecase.NewCarUseCase(repo)
 	handler := handlers.NewCarHandler(uc)
 
 	grpcServer := grpc.NewServer()
 	pb.RegisterCarServiceServer(grpcServer, handler)
 
-	// Enable reflection
 	reflection.Register(grpcServer)
 
-	log.Println("CarService is running on port :50052")
+	log.Println("🚗 CarService is running on port :50052")
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}

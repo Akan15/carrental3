@@ -2,12 +2,18 @@ version: '3.8'
 
 services:
   mongo:
-    image: mongo:latest
+    image: mongo
     container_name: mongo
     ports:
       - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: secret
     volumes:
       - mongo-data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    networks:
+      - carrental-net
 
   user-service:
     build: ./user-service
@@ -15,29 +21,43 @@ services:
       - "50051:50051"
     depends_on:
       - mongo
+    networks:
+      - carrental-net
 
   car-service:
-    build: ./car-service
-    ports:
-      - "50053:50053"
-    depends_on:
-      - mongo
-
-  rental-service:
-    build: ./rental-service
+    build:
+      context: ./car-service
     ports:
       - "50052:50052"
     depends_on:
       - mongo
+    networks:
+      - carrental-net
+
+  rental-service:
+    build:
+      context: ./rental-service
+    ports:
+      - "50053:50053"
+    depends_on:
+      - mongo
+    networks:
+      - carrental-net
 
   api-gateway:
-    build: ./api-gateway
+    build:
+      context: ./api-gateway
     ports:
       - "8080:8080"
     depends_on:
       - user-service
       - car-service
       - rental-service
+    networks:
+      - carrental-net
 
 volumes:
   mongo-data:
+
+networks:
+  carrental-net:

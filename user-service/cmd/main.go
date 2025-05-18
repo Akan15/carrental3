@@ -19,17 +19,19 @@ func main() {
 		log.Fatalf("Failed to listen: %v", err)
 	}
 
+	// 🔄 Переход с памяти на MongoDB
+	//db := repository.InitMongo()
 	repo := repository.NewInMemoryUserRepo()
+
 	uc := usecase.NewUserUseCase(repo)
 	handler := handlers.NewUserHandler(uc)
 
 	grpcServer := grpc.NewServer()
 	pb.RegisterUserServiceServer(grpcServer, handler)
 
-	// 👉 Включаем reflection
 	reflection.Register(grpcServer)
 
-	log.Println("UserService is running on port :50051")
+	log.Println("✅ UserService is running on port :50051")
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}

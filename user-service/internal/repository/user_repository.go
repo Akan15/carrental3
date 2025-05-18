@@ -1,6 +1,12 @@
 package repository
 
-import "github.com/Akan15/carrental3/user-service/internal/models"
+import (
+	"context"
+
+	"github.com/Akan15/carrental3/user-service/internal/models"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+)
 
 type UserRepository interface {
 	GetUserByID(id string) (*models.User, error)
@@ -26,4 +32,23 @@ func (r *InMemoryUserRepo) GetUserByID(id string) (*models.User, error) {
 		return nil, nil
 	}
 	return user, nil
+}
+
+type MongoUserRepo struct {
+	collection *mongo.Collection
+}
+
+func NewMongoUserRepo(db *mongo.Database) *MongoUserRepo {
+	return &MongoUserRepo{
+		collection: db.Collection("users"),
+	}
+}
+
+func (r *MongoUserRepo) GetUserByID(id string) (*models.User, error) {
+	var user models.User
+	err := r.collection.FindOne(context.TODO(), bson.M{"id": id}).Decode(&user)
+	if err != nil {
+		return nil, err
+	}
+	return &user, nil
 }
