@@ -1,24 +1,17 @@
 package main
 
 import (
-	"carrental/api-gateway/internal/client"
-	"carrental/api-gateway/internal/handlers"
-
+	"github.com/Akan15/carrental3/api-gateway/internal/client"
+	"github.com/Akan15/carrental3/api-gateway/internal/handlers"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	clients := client.InitClients()
 	r := gin.Default()
 
-	clients := client.NewClients()
-	h := handlers.NewHandler(clients)
+	handlers.RegisterUserRoutes(r, clients)
+	handlers.RegisterCarRoutes(r, clients)
 
-	api := r.Group("/api")
-	{
-		api.GET("/users/:id", h.GetUser)
-		api.GET("/cars/:id", h.GetCar)
-		api.GET("/rentals/:id", h.GetRental)
-	}
-
-	r.Run(":8080")
+	r.Run(":8080") // слушаем порт 8080
 }

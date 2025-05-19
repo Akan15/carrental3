@@ -8,20 +8,23 @@ import (
 	"github.com/Akan15/carrental3/user-service/internal/repository"
 	"github.com/Akan15/carrental3/user-service/internal/usecase"
 	pb "github.com/Akan15/carrental3/user-service/proto"
+	"github.com/joho/godotenv"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
 
 func main() {
+	_ = godotenv.Load() // ⬅️ это строка загружает SMTP_FROM и SMTP_PASS
+
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatalf("Failed to listen: %v", err)
 	}
 
-	// 🔄 Переход с памяти на MongoDB
-	//db := repository.InitMongo()
-	repo := repository.NewInMemoryUserRepo()
+	// Подключение MongoDB
+	db := repository.InitMongo()
+	repo := repository.NewMongoUserRepo(db)
 
 	uc := usecase.NewUserUseCase(repo)
 	handler := handlers.NewUserHandler(uc)

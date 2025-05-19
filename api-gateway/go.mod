@@ -1,10 +1,12 @@
-module carrental/api-gateway
+module github.com/Akan15/carrental3/api-gateway
 
-go 1.24.1
+go 1.23
+
+toolchain go1.24.1
 
 require (
 	github.com/gin-gonic/gin v1.10.0
-	google.golang.org/grpc v1.72.0
+	google.golang.org/grpc v1.72.1
 	google.golang.org/protobuf v1.36.6
 )
 

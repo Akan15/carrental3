@@ -6,13 +6,29 @@ import (
 )
 
 type CarUseCase struct {
-	repo repository.CarRepository
+	repo *repository.CarRepository
 }
 
-func NewCarUseCase(r repository.CarRepository) *CarUseCase {
+func NewCarUseCase(r *repository.CarRepository) *CarUseCase {
 	return &CarUseCase{repo: r}
 }
 
-func (u *CarUseCase) GetCarByID(id string) (*models.Car, error) {
-	return u.repo.GetCarByID(id)
+func (u *CarUseCase) Create(car *models.Car) (*models.Car, error) {
+	return u.repo.Create(car)
+}
+
+func (u *CarUseCase) GetByID(id string) (*models.Car, error) {
+	return u.repo.GetByID(id)
+}
+
+func (u *CarUseCase) Update(car *models.Car) error {
+	return u.repo.Update(car)
+}
+
+func (u *CarUseCase) Delete(id string) error {
+	return u.repo.Delete(id)
+}
+
+func (u *CarUseCase) List() ([]*models.Car, error) {
+	return u.repo.List()
 }

@@ -1,12 +1,13 @@
 module github.com/Akan15/carrental3/car-service
 
+
 go 1.23
 
 toolchain go1.24.1
 
 require (
 	go.mongodb.org/mongo-driver v1.17.3
-	google.golang.org/grpc v1.72.0
+	google.golang.org/grpc v1.72.1
 	google.golang.org/protobuf v1.36.5
 )
 

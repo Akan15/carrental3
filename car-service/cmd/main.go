@@ -20,17 +20,15 @@ func main() {
 	}
 
 	db := repository.InitMongo()
-	repo := repository.NewMongoCarRepo(db)
-
+	repo := repository.NewCarRepository(db)
 	uc := usecase.NewCarUseCase(repo)
 	handler := handlers.NewCarHandler(uc)
 
 	grpcServer := grpc.NewServer()
 	pb.RegisterCarServiceServer(grpcServer, handler)
-
 	reflection.Register(grpcServer)
 
-	log.Println("🚗 CarService is running on port :50052")
+	log.Println("✅ CarService is running on :50052")
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}

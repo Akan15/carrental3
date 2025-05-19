@@ -3,6 +3,7 @@ FROM golang:1.23-alpine
 
 WORKDIR /app
 
+# Копируем все исходники, включая handlers/usecase
 COPY . .
 
 RUN go mod download

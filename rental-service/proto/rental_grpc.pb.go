@@ -19,14 +19,20 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	RentalService_GetRental_FullMethodName = "/rental.RentalService/GetRental"
+	RentalService_CreateRental_FullMethodName = "/rental.RentalService/CreateRental"
+	RentalService_EndRental_FullMethodName    = "/rental.RentalService/EndRental"
+	RentalService_GetRental_FullMethodName    = "/rental.RentalService/GetRental"
+	RentalService_ListRentals_FullMethodName  = "/rental.RentalService/ListRentals"
 )
 
 // RentalServiceClient is the client API for RentalService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RentalServiceClient interface {
-	GetRental(ctx context.Context, in *GetRentalRequest, opts ...grpc.CallOption) (*GetRentalResponse, error)
+	CreateRental(ctx context.Context, in *CreateRentalRequest, opts ...grpc.CallOption) (*Rental, error)
+	EndRental(ctx context.Context, in *EndRentalRequest, opts ...grpc.CallOption) (*Rental, error)
+	GetRental(ctx context.Context, in *GetRentalRequest, opts ...grpc.CallOption) (*Rental, error)
+	ListRentals(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*RentalList, error)
 }
 
 type rentalServiceClient struct {
@@ -37,10 +43,40 @@ func NewRentalServiceClient(cc grpc.ClientConnInterface) RentalServiceClient {
 	return &rentalServiceClient{cc}
 }
 
-func (c *rentalServiceClient) GetRental(ctx context.Context, in *GetRentalRequest, opts ...grpc.CallOption) (*GetRentalResponse, error) {
+func (c *rentalServiceClient) CreateRental(ctx context.Context, in *CreateRentalRequest, opts ...grpc.CallOption) (*Rental, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetRentalResponse)
+	out := new(Rental)
+	err := c.cc.Invoke(ctx, RentalService_CreateRental_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rentalServiceClient) EndRental(ctx context.Context, in *EndRentalRequest, opts ...grpc.CallOption) (*Rental, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Rental)
+	err := c.cc.Invoke(ctx, RentalService_EndRental_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rentalServiceClient) GetRental(ctx context.Context, in *GetRentalRequest, opts ...grpc.CallOption) (*Rental, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Rental)
 	err := c.cc.Invoke(ctx, RentalService_GetRental_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rentalServiceClient) ListRentals(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*RentalList, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RentalList)
+	err := c.cc.Invoke(ctx, RentalService_ListRentals_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +87,10 @@ func (c *rentalServiceClient) GetRental(ctx context.Context, in *GetRentalReques
 // All implementations must embed UnimplementedRentalServiceServer
 // for forward compatibility.
 type RentalServiceServer interface {
-	GetRental(context.Context, *GetRentalRequest) (*GetRentalResponse, error)
+	CreateRental(context.Context, *CreateRentalRequest) (*Rental, error)
+	EndRental(context.Context, *EndRentalRequest) (*Rental, error)
+	GetRental(context.Context, *GetRentalRequest) (*Rental, error)
+	ListRentals(context.Context, *Empty) (*RentalList, error)
 	mustEmbedUnimplementedRentalServiceServer()
 }
 
@@ -62,8 +101,17 @@ type RentalServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedRentalServiceServer struct{}
 
-func (UnimplementedRentalServiceServer) GetRental(context.Context, *GetRentalRequest) (*GetRentalResponse, error) {
+func (UnimplementedRentalServiceServer) CreateRental(context.Context, *CreateRentalRequest) (*Rental, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRental not implemented")
+}
+func (UnimplementedRentalServiceServer) EndRental(context.Context, *EndRentalRequest) (*Rental, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EndRental not implemented")
+}
+func (UnimplementedRentalServiceServer) GetRental(context.Context, *GetRentalRequest) (*Rental, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRental not implemented")
+}
+func (UnimplementedRentalServiceServer) ListRentals(context.Context, *Empty) (*RentalList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListRentals not implemented")
 }
 func (UnimplementedRentalServiceServer) mustEmbedUnimplementedRentalServiceServer() {}
 func (UnimplementedRentalServiceServer) testEmbeddedByValue()                       {}
@@ -86,6 +134,42 @@ func RegisterRentalServiceServer(s grpc.ServiceRegistrar, srv RentalServiceServe
 	s.RegisterService(&RentalService_ServiceDesc, srv)
 }
 
+func _RentalService_CreateRental_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRentalRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RentalServiceServer).CreateRental(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RentalService_CreateRental_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RentalServiceServer).CreateRental(ctx, req.(*CreateRentalRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RentalService_EndRental_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EndRentalRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RentalServiceServer).EndRental(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RentalService_EndRental_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RentalServiceServer).EndRental(ctx, req.(*EndRentalRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _RentalService_GetRental_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetRentalRequest)
 	if err := dec(in); err != nil {
@@ -104,6 +188,24 @@ func _RentalService_GetRental_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _RentalService_ListRentals_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RentalServiceServer).ListRentals(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RentalService_ListRentals_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RentalServiceServer).ListRentals(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // RentalService_ServiceDesc is the grpc.ServiceDesc for RentalService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -112,8 +214,20 @@ var RentalService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*RentalServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "CreateRental",
+			Handler:    _RentalService_CreateRental_Handler,
+		},
+		{
+			MethodName: "EndRental",
+			Handler:    _RentalService_EndRental_Handler,
+		},
+		{
 			MethodName: "GetRental",
 			Handler:    _RentalService_GetRental_Handler,
+		},
+		{
+			MethodName: "ListRentals",
+			Handler:    _RentalService_ListRentals_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

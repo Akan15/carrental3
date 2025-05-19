@@ -5,36 +5,36 @@ import (
 
 	"google.golang.org/grpc"
 
-	carpb "carrental/api-gateway/proto/car"
-	rentalpb "carrental/api-gateway/proto/rental"
-	userpb "carrental/api-gateway/proto/user"
+	carPb "github.com/Akan15/carrental3/car-service/proto"
+	rentalPb "github.com/Akan15/carrental3/rental-service/proto"
+	userPb "github.com/Akan15/carrental3/user-service/proto"
 )
 
 type Clients struct {
-	UserClient   userpb.UserServiceClient
-	CarClient    carpb.CarServiceClient
-	RentalClient rentalpb.RentalServiceClient
+	User   userPb.UserServiceClient
+	Car    carPb.CarServiceClient
+	Rental rentalPb.RentalServiceClient
 }
 
-func NewClients() *Clients {
-	userConn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+func InitClients() *Clients {
+	userConn, err := grpc.Dial("user-service:50051", grpc.WithInsecure())
 	if err != nil {
-		log.Fatalf("could not connect to user service: %v", err)
+		log.Fatalf("Failed to connect to user-service: %v", err)
 	}
 
-	carConn, err := grpc.Dial("localhost:50052", grpc.WithInsecure())
+	carConn, err := grpc.Dial("car-service:50052", grpc.WithInsecure())
 	if err != nil {
-		log.Fatalf("could not connect to car service: %v", err)
+		log.Fatalf("Failed to connect to car-service: %v", err)
 	}
 
-	rentalConn, err := grpc.Dial("localhost:50053", grpc.WithInsecure())
+	rentalConn, err := grpc.Dial("rental-service:50053", grpc.WithInsecure())
 	if err != nil {
-		log.Fatalf("could not connect to rental service: %v", err)
+		log.Fatalf("Failed to connect to rental-service: %v", err)
 	}
 
 	return &Clients{
-		UserClient:   userpb.NewUserServiceClient(userConn),
-		CarClient:    carpb.NewCarServiceClient(carConn),
-		RentalClient: rentalpb.NewRentalServiceClient(rentalConn),
+		User:   userPb.NewUserServiceClient(userConn),
+		Car:    carPb.NewCarServiceClient(carConn),
+		Rental: rentalPb.NewRentalServiceClient(rentalConn),
 	}
 }

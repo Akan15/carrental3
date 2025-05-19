@@ -21,5 +21,11 @@ func InitMongo() *mongo.Database {
 		log.Fatalf("Failed to connect to MongoDB: %v", err)
 	}
 
+	err = client.Ping(ctx, nil)
+	if err != nil {
+		log.Fatalf("MongoDB ping failed: %v", err)
+	}
+
+	log.Println("MongoDB connected successfully!")
 	return client.Database("carrental")
 }

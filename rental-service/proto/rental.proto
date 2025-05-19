@@ -2,20 +2,41 @@ syntax = "proto3";
 
 package rental;
 
-option go_package = "rental-service/proto;rental";
+option go_package = "github.com/Akan15/carrental3/rental-service/proto;rental";
 
-service RentalService {
-  rpc GetRental(GetRentalRequest) returns (GetRentalResponse);
+message Rental {
+  string id = 1;
+  string user_id = 2;
+  string car_id = 3;
+  string type = 4; // normal / per_minute
+  string start_time = 5;
+  string end_time = 6;
+  double total_price = 7;
+}
+
+message CreateRentalRequest {
+  string user_id = 1;
+  string car_id = 2;
+  string type = 3; // normal / per_minute
+}
+
+message EndRentalRequest {
+  string id = 1;
 }
 
 message GetRentalRequest {
   string id = 1;
 }
 
-message GetRentalResponse {
-  string id = 1;
-  string userId = 2;
-  string carId = 3;
-  string startTime = 4;
-  string endTime = 5;
+message RentalList {
+  repeated Rental rentals = 1;
+}
+
+message Empty {}
+
+service RentalService {
+  rpc CreateRental(CreateRentalRequest) returns (Rental);
+  rpc EndRental(EndRentalRequest) returns (Rental);
+  rpc GetRental(GetRentalRequest) returns (Rental);
+  rpc ListRentals(Empty) returns (RentalList);
 }
