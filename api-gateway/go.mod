@@ -2,9 +2,10 @@ module github.com/Akan15/carrental3/api-gateway
 
 go 1.23
 
-toolchain go1.24.1
-
 require (
+	github.com/Akan15/carrental3/car-service v0.0.0
+	github.com/Akan15/carrental3/rental-service v0.0.0
+	github.com/Akan15/carrental3/user-service v0.0.0
 	github.com/gin-gonic/gin v1.10.0
 	google.golang.org/grpc v1.72.1
 	google.golang.org/protobuf v1.36.6
@@ -38,3 +39,9 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250218202821-56aae31c358a // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+replace github.com/Akan15/carrental3/car-service => ../car-service
+
+replace github.com/Akan15/carrental3/rental-service => ../rental-service
+
+replace github.com/Akan15/carrental3/user-service => ../user-service

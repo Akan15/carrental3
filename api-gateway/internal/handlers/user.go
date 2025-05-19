@@ -1,14 +1,14 @@
 package handlers
 
 import (
-	"carrental/api-gateway/internal/grpc"
 	"net/http"
 
+	"github.com/Akan15/carrental3/api-gateway/internal/client"
 	userPb "github.com/Akan15/carrental3/user-service/proto"
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterUserRoutes(r *gin.Engine, c *grpc.Clients) {
+func RegisterUserRoutes(r *gin.Engine, c *client.Clients) {
 	r.POST("/register", func(ctx *gin.Context) {
 		var req struct {
 			Name     string `json:"name"`

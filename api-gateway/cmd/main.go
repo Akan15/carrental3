@@ -12,6 +12,7 @@ func main() {
 
 	handlers.RegisterUserRoutes(r, clients)
 	handlers.RegisterCarRoutes(r, clients)
+	//handlers.RegisterRentalRoutes(r, clients)
 
-	r.Run(":8080") // слушаем порт 8080
+	r.Run(":8080")
 }

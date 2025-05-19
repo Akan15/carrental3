@@ -12,11 +12,15 @@ import (
 )
 
 type UserUseCase struct {
-	repo repository.UserRepository
+	repo      repository.UserRepository
+	sendEmail func(to, subject, body string) error
 }
 
-func NewUserUseCase(r repository.UserRepository) *UserUseCase {
-	return &UserUseCase{repo: r}
+func NewUserUseCase(r repository.UserRepository, sendEmail func(to, subject, body string) error) *UserUseCase {
+	return &UserUseCase{
+		repo:      r,
+		sendEmail: sendEmail,
+	}
 }
 
 func (u *UserUseCase) GetUserByID(id string) (*models.User, error) {

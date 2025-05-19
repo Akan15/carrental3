@@ -3,11 +3,12 @@ package handlers
 import (
 	"net/http"
 
+	"github.com/Akan15/carrental3/api-gateway/internal/client"
 	carPb "github.com/Akan15/carrental3/car-service/proto"
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterCarRoutes(r *gin.Engine, c *grpc.Clients) {
+func RegisterCarRoutes(r *gin.Engine, c *client.Clients) {
 	r.GET("/cars", func(ctx *gin.Context) {
 		resp, err := c.Car.ListCars(ctx, &carPb.Empty{})
 		if err != nil {

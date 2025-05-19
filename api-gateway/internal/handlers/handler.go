@@ -4,7 +4,9 @@ import (
 	"net/http"
 
 	"github.com/Akan15/carrental3/api-gateway/internal/client"
-
+	carpb "github.com/Akan15/carrental3/car-service/proto"
+	rentalpb "github.com/Akan15/carrental3/rental-service/proto"
+	userpb "github.com/Akan15/carrental3/user-service/proto"
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,7 +25,7 @@ func (h *Handler) GetUser(c *gin.Context) {
 		return
 	}
 	ctx := c.Request.Context()
-	resp, err := h.Clients.UserClient.GetUser(ctx, &userpb.GetUserRequest{Id: id})
+	resp, err := h.Clients.User.GetUser(ctx, &userpb.GetUserRequest{Id: id})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -38,7 +40,7 @@ func (h *Handler) GetCar(c *gin.Context) {
 		return
 	}
 	ctx := c.Request.Context()
-	resp, err := h.Clients.CarClient.GetCar(ctx, &carpb.CarIdRequest{Id: id})
+	resp, err := h.Clients.Car.GetCar(ctx, &carpb.CarIdRequest{Id: id})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -53,7 +55,7 @@ func (h *Handler) GetRental(c *gin.Context) {
 		return
 	}
 	ctx := c.Request.Context()
-	resp, err := h.Clients.RentalClient.GetRental(ctx, &rentalpb.GetRentalRequest{Id: id})
+	resp, err := h.Clients.Rental.GetRental(ctx, &rentalpb.GetRentalRequest{Id: id})
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

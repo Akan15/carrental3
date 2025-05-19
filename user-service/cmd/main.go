@@ -4,6 +4,7 @@ import (
 	"log"
 	"net"
 
+	"github.com/Akan15/carrental3/user-service/internal/email"
 	"github.com/Akan15/carrental3/user-service/internal/handlers"
 	"github.com/Akan15/carrental3/user-service/internal/repository"
 	"github.com/Akan15/carrental3/user-service/internal/usecase"
@@ -26,7 +27,7 @@ func main() {
 	db := repository.InitMongo()
 	repo := repository.NewMongoUserRepo(db)
 
-	uc := usecase.NewUserUseCase(repo)
+	uc := usecase.NewUserUseCase(repo, email.SendEmail)
 	handler := handlers.NewUserHandler(uc)
 
 	grpcServer := grpc.NewServer()
