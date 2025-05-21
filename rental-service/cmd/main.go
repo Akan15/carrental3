@@ -42,13 +42,23 @@ func main() {
 	db := InitMongo()
 	repo := repository.NewRentalRepository(db)
 
-	publisher, err := nats.NewPublisher("nats://localhost:4222")
-	if err != nil {
-		log.Fatal(err)
+	var publisher *nats.Publisher
+	for i := 1; i <= 5; i++ {
+		publisher, err = nats.NewPublisher("nats://nats:4222")
+		if err == nil {
+			log.Println("✅ Connected to NATS")
+			break
+		}
+		log.Printf("❌ Failed to connect to NATS (attempt %d/5): %v", i, err)
+		time.Sleep(2 * time.Second)
 	}
+	if err != nil {
+		log.Fatalf("💀 Could not connect to NATS after 5 attempts: %v", err)
+	}
+
 	defer publisher.Close()
 
-	uc := usecase.NewRentalUseCase(repo, publisher) // ✅ только один вызов
+	uc := usecase.NewRentalUseCase(repo, publisher)
 
 	handler := handlers.NewRentalHandler(uc)
 

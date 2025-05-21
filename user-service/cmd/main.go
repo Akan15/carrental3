@@ -19,7 +19,7 @@ import (
 )
 
 func main() {
-	_ = godotenv.Load() // ⬅️ это строка загружает SMTP_FROM и SMTP_PASS
+	_ = godotenv.Load()
 
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {

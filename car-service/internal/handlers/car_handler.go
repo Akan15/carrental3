@@ -120,7 +120,7 @@ func (h *CarHandler) FindNearbyCars(ctx context.Context, req *pb.LocationRequest
 }
 
 func (h *CarHandler) ChangeStatus(ctx context.Context, req *pb.ChangeStatusRequest) (*pb.Car, error) {
-	err := h.usecase.ChangeStatus(ctx, req.Id, req.Status)
+	_, err := h.usecase.ChangeStatus(ctx, req.Id, req.Status)
 	if err != nil {
 		return nil, err
 	}
@@ -129,7 +129,6 @@ func (h *CarHandler) ChangeStatus(ctx context.Context, req *pb.ChangeStatusReque
 		return nil, err
 	}
 	return mapCarToProto(car), nil
-
 }
 
 func (h *CarHandler) GetCarLocation(ctx context.Context, req *pb.CarIdRequest) (*pb.LocationResponse, error) {
@@ -138,7 +137,7 @@ func (h *CarHandler) GetCarLocation(ctx context.Context, req *pb.CarIdRequest) (
 }
 
 func (h *CarHandler) UpdateLocation(ctx context.Context, req *pb.LocationUpdateRequest) (*pb.Car, error) {
-	err := h.usecase.UpdateLocation(ctx, req.Id, req.Latitude, req.Longitude)
+	_, err := h.usecase.UpdateLocation(req.Id, req.Latitude, req.Longitude)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +146,6 @@ func (h *CarHandler) UpdateLocation(ctx context.Context, req *pb.LocationUpdateR
 		return nil, err
 	}
 	return mapCarToProto(car), nil
-
 }
 
 func toCarList(cars []*models.Car) *pb.CarList {

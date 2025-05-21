@@ -18,18 +18,17 @@ type CarUsecase interface {
 	GetCarsByStatus(status string) ([]*models.Car, error)
 	FindByModel(model string) ([]*models.Car, error)
 	FindNearbyCars(lat, lon, radius float64) ([]*models.Car, error)
-	ChangeStatus(ctx context.Context, id, status string) error
+	ChangeStatus(ctx context.Context, id, status string) (*models.Car, error)
 	GetCarLocation(id string) (float64, float64, error)
-	UpdateLocation(id string, lat, lon float64) error
+	UpdateLocation(id string, lat, lon float64) (*models.Car, error)
 }
 
 type carUsecase struct {
-	repo repository.CarRepositoryInterface
+	repo repository.CarRepository
 }
 
-// ✅ Конструктор возвращает интерфейс
-func NewCarUseCase(repo repository.CarRepositoryInterface) CarUsecase {
-	return &carUsecase{repo: repo}
+func NewCarUseCase(r repository.CarRepository) CarUsecase {
+	return &carUsecase{repo: r}
 }
 
 func (u *carUsecase) Create(car *models.Car) (*models.Car, error) {
@@ -72,8 +71,7 @@ func (u *carUsecase) FindNearbyCars(lat, lon, radius float64) ([]*models.Car, er
 	return u.repo.FindNearby(lat, lon, radius)
 }
 
-// 🟢 Исправлено: принимает context.Context
-func (u *carUsecase) ChangeStatus(ctx context.Context, id, status string) error {
+func (u *carUsecase) ChangeStatus(ctx context.Context, id, status string) (*models.Car, error) {
 	return u.repo.ChangeStatus(id, status)
 }
 
@@ -81,6 +79,6 @@ func (u *carUsecase) GetCarLocation(id string) (float64, float64, error) {
 	return u.repo.GetLocation(id)
 }
 
-func (u *carUsecase) UpdateLocation(id string, lat, lon float64) error {
+func (u *carUsecase) UpdateLocation(id string, lat, lon float64) (*models.Car, error) {
 	return u.repo.UpdateLocation(id, lat, lon)
 }

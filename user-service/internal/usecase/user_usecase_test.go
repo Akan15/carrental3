@@ -54,7 +54,7 @@ func TestLogin_InvalidPassword(t *testing.T) {
 	mockRepo := new(mocks.UserRepository)
 	mockRepo.On("GetUserByEmail", "test@example.com").Return(&models.User{
 		Email:    "test@example.com",
-		Password: "$2a$10$invalidHashed", // невалидный bcrypt-хеш
+		Password: "$2a$10$invalidHashed",
 	}, nil)
 
 	uc := usecase.NewUserUseCase(mockRepo, nil)

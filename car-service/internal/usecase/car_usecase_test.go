@@ -120,9 +120,7 @@ func TestChangeStatus(t *testing.T) {
 	m.On("ChangeStatus", "abc123", "occupied").Return(expected, nil)
 
 	uc := usecase.NewCarUseCase(m)
-	err := uc.ChangeStatus(context.Background(), "abc123", "occupied")
-	assert.NoError(t, err)
-
+	car, err := uc.ChangeStatus(context.Background(), "abc123", "occupied")
 	assert.NoError(t, err)
 	assert.Equal(t, "occupied", car.Status)
 }
@@ -145,9 +143,9 @@ func TestUpdateLocation(t *testing.T) {
 	m.On("UpdateLocation", "carID", 50.0, 70.0).Return(expected, nil)
 
 	uc := usecase.NewCarUseCase(m)
-	err := uc.UpdateLocation("carID", 50.0, 70.0)
-	assert.NoError(t, err)
+	car, err := uc.UpdateLocation("carID", 50.0, 70.0)
 
 	assert.NoError(t, err)
 	assert.Equal(t, 50.0, car.Latitude)
+	assert.Equal(t, 70.0, car.Longitude)
 }

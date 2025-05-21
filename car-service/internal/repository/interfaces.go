@@ -2,7 +2,7 @@ package repository
 
 import "github.com/Akan15/carrental3/car-service/internal/models"
 
-type CarRepositoryInterface interface {
+type CarRepository interface {
 	Create(car *models.Car) (*models.Car, error)
 	GetByID(id string) (*models.Car, error)
 	Update(car *models.Car) error

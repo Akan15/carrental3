@@ -28,7 +28,7 @@ func SubscribeToRentalCreated(natsURL string, carUC usecase.CarUsecase) error {
 			log.Println("Invalid message:", err)
 			return
 		}
-		err := carUC.ChangeStatus(context.Background(), event.CarID, event.Status)
+		_, err := carUC.ChangeStatus(context.Background(), event.CarID, event.Status)
 		if err != nil {
 			log.Println("Failed to update car status:", err)
 		}
