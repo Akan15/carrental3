@@ -32,6 +32,23 @@ message RentalList {
   repeated Rental rentals = 1;
 }
 
+message RentalIdRequest {
+  string id = 1;
+}
+
+message UpdateTypeRequest {
+  string id = 1;
+  string type = 2;
+}
+
+message UserIdRequest {
+  string user_id = 1;
+}
+
+message CarIdRequest {
+  string car_id = 1;
+}
+
 message Empty {}
 
 service RentalService {
@@ -39,4 +56,9 @@ service RentalService {
   rpc EndRental(EndRentalRequest) returns (Rental);
   rpc GetRental(GetRentalRequest) returns (Rental);
   rpc ListRentals(Empty) returns (RentalList);
+  rpc ListByUser(UserIdRequest) returns (RentalList);
+  rpc ListByCar(CarIdRequest) returns (RentalList);
+  rpc GetActiveRentals(Empty) returns (RentalList);
+  rpc DeleteRental(RentalIdRequest) returns (Empty);
+  rpc UpdateType(UpdateTypeRequest) returns (Rental);
 }

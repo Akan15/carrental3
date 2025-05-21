@@ -305,6 +305,190 @@ func (x *RentalList) GetRentals() []*Rental {
 	return nil
 }
 
+type RentalIdRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RentalIdRequest) Reset() {
+	*x = RentalIdRequest{}
+	mi := &file_proto_rental_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RentalIdRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RentalIdRequest) ProtoMessage() {}
+
+func (x *RentalIdRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_rental_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RentalIdRequest.ProtoReflect.Descriptor instead.
+func (*RentalIdRequest) Descriptor() ([]byte, []int) {
+	return file_proto_rental_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *RentalIdRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type UpdateTypeRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Type          string                 `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateTypeRequest) Reset() {
+	*x = UpdateTypeRequest{}
+	mi := &file_proto_rental_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateTypeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateTypeRequest) ProtoMessage() {}
+
+func (x *UpdateTypeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_rental_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateTypeRequest.ProtoReflect.Descriptor instead.
+func (*UpdateTypeRequest) Descriptor() ([]byte, []int) {
+	return file_proto_rental_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *UpdateTypeRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *UpdateTypeRequest) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+type UserIdRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        string                 `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UserIdRequest) Reset() {
+	*x = UserIdRequest{}
+	mi := &file_proto_rental_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UserIdRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UserIdRequest) ProtoMessage() {}
+
+func (x *UserIdRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_rental_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UserIdRequest.ProtoReflect.Descriptor instead.
+func (*UserIdRequest) Descriptor() ([]byte, []int) {
+	return file_proto_rental_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *UserIdRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+type CarIdRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CarId         string                 `protobuf:"bytes,1,opt,name=car_id,json=carId,proto3" json:"car_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CarIdRequest) Reset() {
+	*x = CarIdRequest{}
+	mi := &file_proto_rental_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CarIdRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CarIdRequest) ProtoMessage() {}
+
+func (x *CarIdRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_rental_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CarIdRequest.ProtoReflect.Descriptor instead.
+func (*CarIdRequest) Descriptor() ([]byte, []int) {
+	return file_proto_rental_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *CarIdRequest) GetCarId() string {
+	if x != nil {
+		return x.CarId
+	}
+	return ""
+}
+
 type Empty struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
@@ -313,7 +497,7 @@ type Empty struct {
 
 func (x *Empty) Reset() {
 	*x = Empty{}
-	mi := &file_proto_rental_proto_msgTypes[5]
+	mi := &file_proto_rental_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -325,7 +509,7 @@ func (x *Empty) String() string {
 func (*Empty) ProtoMessage() {}
 
 func (x *Empty) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_rental_proto_msgTypes[5]
+	mi := &file_proto_rental_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -338,7 +522,7 @@ func (x *Empty) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Empty.ProtoReflect.Descriptor instead.
 func (*Empty) Descriptor() ([]byte, []int) {
-	return file_proto_rental_proto_rawDescGZIP(), []int{5}
+	return file_proto_rental_proto_rawDescGZIP(), []int{9}
 }
 
 var File_proto_rental_proto protoreflect.FileDescriptor
@@ -366,13 +550,29 @@ const file_proto_rental_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"6\n" +
 	"\n" +
 	"RentalList\x12(\n" +
-	"\arentals\x18\x01 \x03(\v2\x0e.rental.RentalR\arentals\"\a\n" +
-	"\x05Empty2\xec\x01\n" +
+	"\arentals\x18\x01 \x03(\v2\x0e.rental.RentalR\arentals\"!\n" +
+	"\x0fRentalIdRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\"7\n" +
+	"\x11UpdateTypeRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
+	"\x04type\x18\x02 \x01(\tR\x04type\"(\n" +
+	"\rUserIdRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\tR\x06userId\"%\n" +
+	"\fCarIdRequest\x12\x15\n" +
+	"\x06car_id\x18\x01 \x01(\tR\x05carId\"\a\n" +
+	"\x05Empty2\x84\x04\n" +
 	"\rRentalService\x12;\n" +
 	"\fCreateRental\x12\x1b.rental.CreateRentalRequest\x1a\x0e.rental.Rental\x125\n" +
 	"\tEndRental\x12\x18.rental.EndRentalRequest\x1a\x0e.rental.Rental\x125\n" +
 	"\tGetRental\x12\x18.rental.GetRentalRequest\x1a\x0e.rental.Rental\x120\n" +
-	"\vListRentals\x12\r.rental.Empty\x1a\x12.rental.RentalListB:Z8github.com/Akan15/carrental3/rental-service/proto;rentalb\x06proto3"
+	"\vListRentals\x12\r.rental.Empty\x1a\x12.rental.RentalList\x127\n" +
+	"\n" +
+	"ListByUser\x12\x15.rental.UserIdRequest\x1a\x12.rental.RentalList\x125\n" +
+	"\tListByCar\x12\x14.rental.CarIdRequest\x1a\x12.rental.RentalList\x125\n" +
+	"\x10GetActiveRentals\x12\r.rental.Empty\x1a\x12.rental.RentalList\x126\n" +
+	"\fDeleteRental\x12\x17.rental.RentalIdRequest\x1a\r.rental.Empty\x127\n" +
+	"\n" +
+	"UpdateType\x12\x19.rental.UpdateTypeRequest\x1a\x0e.rental.RentalB:Z8github.com/Akan15/carrental3/rental-service/proto;rentalb\x06proto3"
 
 var (
 	file_proto_rental_proto_rawDescOnce sync.Once
@@ -386,30 +586,44 @@ func file_proto_rental_proto_rawDescGZIP() []byte {
 	return file_proto_rental_proto_rawDescData
 }
 
-var file_proto_rental_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_proto_rental_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_proto_rental_proto_goTypes = []any{
 	(*Rental)(nil),              // 0: rental.Rental
 	(*CreateRentalRequest)(nil), // 1: rental.CreateRentalRequest
 	(*EndRentalRequest)(nil),    // 2: rental.EndRentalRequest
 	(*GetRentalRequest)(nil),    // 3: rental.GetRentalRequest
 	(*RentalList)(nil),          // 4: rental.RentalList
-	(*Empty)(nil),               // 5: rental.Empty
+	(*RentalIdRequest)(nil),     // 5: rental.RentalIdRequest
+	(*UpdateTypeRequest)(nil),   // 6: rental.UpdateTypeRequest
+	(*UserIdRequest)(nil),       // 7: rental.UserIdRequest
+	(*CarIdRequest)(nil),        // 8: rental.CarIdRequest
+	(*Empty)(nil),               // 9: rental.Empty
 }
 var file_proto_rental_proto_depIdxs = []int32{
-	0, // 0: rental.RentalList.rentals:type_name -> rental.Rental
-	1, // 1: rental.RentalService.CreateRental:input_type -> rental.CreateRentalRequest
-	2, // 2: rental.RentalService.EndRental:input_type -> rental.EndRentalRequest
-	3, // 3: rental.RentalService.GetRental:input_type -> rental.GetRentalRequest
-	5, // 4: rental.RentalService.ListRentals:input_type -> rental.Empty
-	0, // 5: rental.RentalService.CreateRental:output_type -> rental.Rental
-	0, // 6: rental.RentalService.EndRental:output_type -> rental.Rental
-	0, // 7: rental.RentalService.GetRental:output_type -> rental.Rental
-	4, // 8: rental.RentalService.ListRentals:output_type -> rental.RentalList
-	5, // [5:9] is the sub-list for method output_type
-	1, // [1:5] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0,  // 0: rental.RentalList.rentals:type_name -> rental.Rental
+	1,  // 1: rental.RentalService.CreateRental:input_type -> rental.CreateRentalRequest
+	2,  // 2: rental.RentalService.EndRental:input_type -> rental.EndRentalRequest
+	3,  // 3: rental.RentalService.GetRental:input_type -> rental.GetRentalRequest
+	9,  // 4: rental.RentalService.ListRentals:input_type -> rental.Empty
+	7,  // 5: rental.RentalService.ListByUser:input_type -> rental.UserIdRequest
+	8,  // 6: rental.RentalService.ListByCar:input_type -> rental.CarIdRequest
+	9,  // 7: rental.RentalService.GetActiveRentals:input_type -> rental.Empty
+	5,  // 8: rental.RentalService.DeleteRental:input_type -> rental.RentalIdRequest
+	6,  // 9: rental.RentalService.UpdateType:input_type -> rental.UpdateTypeRequest
+	0,  // 10: rental.RentalService.CreateRental:output_type -> rental.Rental
+	0,  // 11: rental.RentalService.EndRental:output_type -> rental.Rental
+	0,  // 12: rental.RentalService.GetRental:output_type -> rental.Rental
+	4,  // 13: rental.RentalService.ListRentals:output_type -> rental.RentalList
+	4,  // 14: rental.RentalService.ListByUser:output_type -> rental.RentalList
+	4,  // 15: rental.RentalService.ListByCar:output_type -> rental.RentalList
+	4,  // 16: rental.RentalService.GetActiveRentals:output_type -> rental.RentalList
+	9,  // 17: rental.RentalService.DeleteRental:output_type -> rental.Empty
+	0,  // 18: rental.RentalService.UpdateType:output_type -> rental.Rental
+	10, // [10:19] is the sub-list for method output_type
+	1,  // [1:10] is the sub-list for method input_type
+	1,  // [1:1] is the sub-list for extension type_name
+	1,  // [1:1] is the sub-list for extension extendee
+	0,  // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_proto_rental_proto_init() }
@@ -423,7 +637,7 @@ func file_proto_rental_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_rental_proto_rawDesc), len(file_proto_rental_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -46,4 +46,24 @@ func RegisterCarRoutes(r *gin.Engine, c *client.Clients) {
 		}
 		ctx.JSON(http.StatusOK, car)
 	})
+
+	r.GET("/cars/available", func(ctx *gin.Context) {
+		resp, err := c.Car.GetAvailableCars(ctx, &carPb.Empty{})
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		ctx.JSON(http.StatusOK, resp.Cars)
+	})
+
+	r.GET("/cars/search", func(ctx *gin.Context) {
+		model := ctx.Query("model")
+		resp, err := c.Car.FindByModel(ctx, &carPb.ModelRequest{Model: model})
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		ctx.JSON(http.StatusOK, resp.Cars)
+	})
+
 }

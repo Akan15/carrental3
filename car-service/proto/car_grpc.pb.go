@@ -19,11 +19,19 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CarService_CreateCar_FullMethodName = "/car.CarService/CreateCar"
-	CarService_GetCar_FullMethodName    = "/car.CarService/GetCar"
-	CarService_UpdateCar_FullMethodName = "/car.CarService/UpdateCar"
-	CarService_DeleteCar_FullMethodName = "/car.CarService/DeleteCar"
-	CarService_ListCars_FullMethodName  = "/car.CarService/ListCars"
+	CarService_CreateCar_FullMethodName        = "/car.CarService/CreateCar"
+	CarService_GetCar_FullMethodName           = "/car.CarService/GetCar"
+	CarService_UpdateCar_FullMethodName        = "/car.CarService/UpdateCar"
+	CarService_DeleteCar_FullMethodName        = "/car.CarService/DeleteCar"
+	CarService_ListCars_FullMethodName         = "/car.CarService/ListCars"
+	CarService_GetAvailableCars_FullMethodName = "/car.CarService/GetAvailableCars"
+	CarService_GetCarsByCity_FullMethodName    = "/car.CarService/GetCarsByCity"
+	CarService_GetCarsByStatus_FullMethodName  = "/car.CarService/GetCarsByStatus"
+	CarService_FindByModel_FullMethodName      = "/car.CarService/FindByModel"
+	CarService_FindNearbyCars_FullMethodName   = "/car.CarService/FindNearbyCars"
+	CarService_ChangeStatus_FullMethodName     = "/car.CarService/ChangeStatus"
+	CarService_GetCarLocation_FullMethodName   = "/car.CarService/GetCarLocation"
+	CarService_UpdateLocation_FullMethodName   = "/car.CarService/UpdateLocation"
 )
 
 // CarServiceClient is the client API for CarService service.
@@ -35,6 +43,14 @@ type CarServiceClient interface {
 	UpdateCar(ctx context.Context, in *UpdateCarRequest, opts ...grpc.CallOption) (*Car, error)
 	DeleteCar(ctx context.Context, in *CarIdRequest, opts ...grpc.CallOption) (*Empty, error)
 	ListCars(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*CarList, error)
+	GetAvailableCars(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*CarList, error)
+	GetCarsByCity(ctx context.Context, in *CityRequest, opts ...grpc.CallOption) (*CarList, error)
+	GetCarsByStatus(ctx context.Context, in *StatusRequest, opts ...grpc.CallOption) (*CarList, error)
+	FindByModel(ctx context.Context, in *ModelRequest, opts ...grpc.CallOption) (*CarList, error)
+	FindNearbyCars(ctx context.Context, in *LocationRequest, opts ...grpc.CallOption) (*CarList, error)
+	ChangeStatus(ctx context.Context, in *ChangeStatusRequest, opts ...grpc.CallOption) (*Car, error)
+	GetCarLocation(ctx context.Context, in *CarIdRequest, opts ...grpc.CallOption) (*LocationResponse, error)
+	UpdateLocation(ctx context.Context, in *LocationUpdateRequest, opts ...grpc.CallOption) (*Car, error)
 }
 
 type carServiceClient struct {
@@ -95,6 +111,86 @@ func (c *carServiceClient) ListCars(ctx context.Context, in *Empty, opts ...grpc
 	return out, nil
 }
 
+func (c *carServiceClient) GetAvailableCars(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*CarList, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CarList)
+	err := c.cc.Invoke(ctx, CarService_GetAvailableCars_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *carServiceClient) GetCarsByCity(ctx context.Context, in *CityRequest, opts ...grpc.CallOption) (*CarList, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CarList)
+	err := c.cc.Invoke(ctx, CarService_GetCarsByCity_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *carServiceClient) GetCarsByStatus(ctx context.Context, in *StatusRequest, opts ...grpc.CallOption) (*CarList, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CarList)
+	err := c.cc.Invoke(ctx, CarService_GetCarsByStatus_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *carServiceClient) FindByModel(ctx context.Context, in *ModelRequest, opts ...grpc.CallOption) (*CarList, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CarList)
+	err := c.cc.Invoke(ctx, CarService_FindByModel_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *carServiceClient) FindNearbyCars(ctx context.Context, in *LocationRequest, opts ...grpc.CallOption) (*CarList, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CarList)
+	err := c.cc.Invoke(ctx, CarService_FindNearbyCars_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *carServiceClient) ChangeStatus(ctx context.Context, in *ChangeStatusRequest, opts ...grpc.CallOption) (*Car, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Car)
+	err := c.cc.Invoke(ctx, CarService_ChangeStatus_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *carServiceClient) GetCarLocation(ctx context.Context, in *CarIdRequest, opts ...grpc.CallOption) (*LocationResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(LocationResponse)
+	err := c.cc.Invoke(ctx, CarService_GetCarLocation_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *carServiceClient) UpdateLocation(ctx context.Context, in *LocationUpdateRequest, opts ...grpc.CallOption) (*Car, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Car)
+	err := c.cc.Invoke(ctx, CarService_UpdateLocation_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CarServiceServer is the server API for CarService service.
 // All implementations must embed UnimplementedCarServiceServer
 // for forward compatibility.
@@ -104,6 +200,14 @@ type CarServiceServer interface {
 	UpdateCar(context.Context, *UpdateCarRequest) (*Car, error)
 	DeleteCar(context.Context, *CarIdRequest) (*Empty, error)
 	ListCars(context.Context, *Empty) (*CarList, error)
+	GetAvailableCars(context.Context, *Empty) (*CarList, error)
+	GetCarsByCity(context.Context, *CityRequest) (*CarList, error)
+	GetCarsByStatus(context.Context, *StatusRequest) (*CarList, error)
+	FindByModel(context.Context, *ModelRequest) (*CarList, error)
+	FindNearbyCars(context.Context, *LocationRequest) (*CarList, error)
+	ChangeStatus(context.Context, *ChangeStatusRequest) (*Car, error)
+	GetCarLocation(context.Context, *CarIdRequest) (*LocationResponse, error)
+	UpdateLocation(context.Context, *LocationUpdateRequest) (*Car, error)
 	mustEmbedUnimplementedCarServiceServer()
 }
 
@@ -128,6 +232,30 @@ func (UnimplementedCarServiceServer) DeleteCar(context.Context, *CarIdRequest) (
 }
 func (UnimplementedCarServiceServer) ListCars(context.Context, *Empty) (*CarList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListCars not implemented")
+}
+func (UnimplementedCarServiceServer) GetAvailableCars(context.Context, *Empty) (*CarList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAvailableCars not implemented")
+}
+func (UnimplementedCarServiceServer) GetCarsByCity(context.Context, *CityRequest) (*CarList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCarsByCity not implemented")
+}
+func (UnimplementedCarServiceServer) GetCarsByStatus(context.Context, *StatusRequest) (*CarList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCarsByStatus not implemented")
+}
+func (UnimplementedCarServiceServer) FindByModel(context.Context, *ModelRequest) (*CarList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindByModel not implemented")
+}
+func (UnimplementedCarServiceServer) FindNearbyCars(context.Context, *LocationRequest) (*CarList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindNearbyCars not implemented")
+}
+func (UnimplementedCarServiceServer) ChangeStatus(context.Context, *ChangeStatusRequest) (*Car, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ChangeStatus not implemented")
+}
+func (UnimplementedCarServiceServer) GetCarLocation(context.Context, *CarIdRequest) (*LocationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCarLocation not implemented")
+}
+func (UnimplementedCarServiceServer) UpdateLocation(context.Context, *LocationUpdateRequest) (*Car, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateLocation not implemented")
 }
 func (UnimplementedCarServiceServer) mustEmbedUnimplementedCarServiceServer() {}
 func (UnimplementedCarServiceServer) testEmbeddedByValue()                    {}
@@ -240,6 +368,150 @@ func _CarService_ListCars_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CarService_GetAvailableCars_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CarServiceServer).GetAvailableCars(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CarService_GetAvailableCars_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CarServiceServer).GetAvailableCars(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CarService_GetCarsByCity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CityRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CarServiceServer).GetCarsByCity(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CarService_GetCarsByCity_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CarServiceServer).GetCarsByCity(ctx, req.(*CityRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CarService_GetCarsByStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(StatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CarServiceServer).GetCarsByStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CarService_GetCarsByStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CarServiceServer).GetCarsByStatus(ctx, req.(*StatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CarService_FindByModel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ModelRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CarServiceServer).FindByModel(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CarService_FindByModel_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CarServiceServer).FindByModel(ctx, req.(*ModelRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CarService_FindNearbyCars_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LocationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CarServiceServer).FindNearbyCars(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CarService_FindNearbyCars_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CarServiceServer).FindNearbyCars(ctx, req.(*LocationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CarService_ChangeStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChangeStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CarServiceServer).ChangeStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CarService_ChangeStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CarServiceServer).ChangeStatus(ctx, req.(*ChangeStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CarService_GetCarLocation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CarIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CarServiceServer).GetCarLocation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CarService_GetCarLocation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CarServiceServer).GetCarLocation(ctx, req.(*CarIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _CarService_UpdateLocation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LocationUpdateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CarServiceServer).UpdateLocation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CarService_UpdateLocation_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CarServiceServer).UpdateLocation(ctx, req.(*LocationUpdateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CarService_ServiceDesc is the grpc.ServiceDesc for CarService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -266,6 +538,38 @@ var CarService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListCars",
 			Handler:    _CarService_ListCars_Handler,
+		},
+		{
+			MethodName: "GetAvailableCars",
+			Handler:    _CarService_GetAvailableCars_Handler,
+		},
+		{
+			MethodName: "GetCarsByCity",
+			Handler:    _CarService_GetCarsByCity_Handler,
+		},
+		{
+			MethodName: "GetCarsByStatus",
+			Handler:    _CarService_GetCarsByStatus_Handler,
+		},
+		{
+			MethodName: "FindByModel",
+			Handler:    _CarService_FindByModel_Handler,
+		},
+		{
+			MethodName: "FindNearbyCars",
+			Handler:    _CarService_FindNearbyCars_Handler,
+		},
+		{
+			MethodName: "ChangeStatus",
+			Handler:    _CarService_ChangeStatus_Handler,
+		},
+		{
+			MethodName: "GetCarLocation",
+			Handler:    _CarService_GetCarLocation_Handler,
+		},
+		{
+			MethodName: "UpdateLocation",
+			Handler:    _CarService_UpdateLocation_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

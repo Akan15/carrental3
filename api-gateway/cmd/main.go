@@ -12,7 +12,6 @@ func main() {
 
 	handlers.RegisterUserRoutes(r, clients)
 	handlers.RegisterCarRoutes(r, clients)
-	//handlers.RegisterRentalRoutes(r, clients)
-
+	handlers.RegisterRentalRoutes(r, clients)
 	r.Run(":8080")
 }

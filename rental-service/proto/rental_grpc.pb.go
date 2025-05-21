@@ -19,10 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	RentalService_CreateRental_FullMethodName = "/rental.RentalService/CreateRental"
-	RentalService_EndRental_FullMethodName    = "/rental.RentalService/EndRental"
-	RentalService_GetRental_FullMethodName    = "/rental.RentalService/GetRental"
-	RentalService_ListRentals_FullMethodName  = "/rental.RentalService/ListRentals"
+	RentalService_CreateRental_FullMethodName     = "/rental.RentalService/CreateRental"
+	RentalService_EndRental_FullMethodName        = "/rental.RentalService/EndRental"
+	RentalService_GetRental_FullMethodName        = "/rental.RentalService/GetRental"
+	RentalService_ListRentals_FullMethodName      = "/rental.RentalService/ListRentals"
+	RentalService_ListByUser_FullMethodName       = "/rental.RentalService/ListByUser"
+	RentalService_ListByCar_FullMethodName        = "/rental.RentalService/ListByCar"
+	RentalService_GetActiveRentals_FullMethodName = "/rental.RentalService/GetActiveRentals"
+	RentalService_DeleteRental_FullMethodName     = "/rental.RentalService/DeleteRental"
+	RentalService_UpdateType_FullMethodName       = "/rental.RentalService/UpdateType"
 )
 
 // RentalServiceClient is the client API for RentalService service.
@@ -33,6 +38,11 @@ type RentalServiceClient interface {
 	EndRental(ctx context.Context, in *EndRentalRequest, opts ...grpc.CallOption) (*Rental, error)
 	GetRental(ctx context.Context, in *GetRentalRequest, opts ...grpc.CallOption) (*Rental, error)
 	ListRentals(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*RentalList, error)
+	ListByUser(ctx context.Context, in *UserIdRequest, opts ...grpc.CallOption) (*RentalList, error)
+	ListByCar(ctx context.Context, in *CarIdRequest, opts ...grpc.CallOption) (*RentalList, error)
+	GetActiveRentals(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*RentalList, error)
+	DeleteRental(ctx context.Context, in *RentalIdRequest, opts ...grpc.CallOption) (*Empty, error)
+	UpdateType(ctx context.Context, in *UpdateTypeRequest, opts ...grpc.CallOption) (*Rental, error)
 }
 
 type rentalServiceClient struct {
@@ -83,6 +93,56 @@ func (c *rentalServiceClient) ListRentals(ctx context.Context, in *Empty, opts .
 	return out, nil
 }
 
+func (c *rentalServiceClient) ListByUser(ctx context.Context, in *UserIdRequest, opts ...grpc.CallOption) (*RentalList, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RentalList)
+	err := c.cc.Invoke(ctx, RentalService_ListByUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rentalServiceClient) ListByCar(ctx context.Context, in *CarIdRequest, opts ...grpc.CallOption) (*RentalList, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RentalList)
+	err := c.cc.Invoke(ctx, RentalService_ListByCar_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rentalServiceClient) GetActiveRentals(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*RentalList, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RentalList)
+	err := c.cc.Invoke(ctx, RentalService_GetActiveRentals_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rentalServiceClient) DeleteRental(ctx context.Context, in *RentalIdRequest, opts ...grpc.CallOption) (*Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, RentalService_DeleteRental_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *rentalServiceClient) UpdateType(ctx context.Context, in *UpdateTypeRequest, opts ...grpc.CallOption) (*Rental, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Rental)
+	err := c.cc.Invoke(ctx, RentalService_UpdateType_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RentalServiceServer is the server API for RentalService service.
 // All implementations must embed UnimplementedRentalServiceServer
 // for forward compatibility.
@@ -91,6 +151,11 @@ type RentalServiceServer interface {
 	EndRental(context.Context, *EndRentalRequest) (*Rental, error)
 	GetRental(context.Context, *GetRentalRequest) (*Rental, error)
 	ListRentals(context.Context, *Empty) (*RentalList, error)
+	ListByUser(context.Context, *UserIdRequest) (*RentalList, error)
+	ListByCar(context.Context, *CarIdRequest) (*RentalList, error)
+	GetActiveRentals(context.Context, *Empty) (*RentalList, error)
+	DeleteRental(context.Context, *RentalIdRequest) (*Empty, error)
+	UpdateType(context.Context, *UpdateTypeRequest) (*Rental, error)
 	mustEmbedUnimplementedRentalServiceServer()
 }
 
@@ -112,6 +177,21 @@ func (UnimplementedRentalServiceServer) GetRental(context.Context, *GetRentalReq
 }
 func (UnimplementedRentalServiceServer) ListRentals(context.Context, *Empty) (*RentalList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListRentals not implemented")
+}
+func (UnimplementedRentalServiceServer) ListByUser(context.Context, *UserIdRequest) (*RentalList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListByUser not implemented")
+}
+func (UnimplementedRentalServiceServer) ListByCar(context.Context, *CarIdRequest) (*RentalList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListByCar not implemented")
+}
+func (UnimplementedRentalServiceServer) GetActiveRentals(context.Context, *Empty) (*RentalList, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetActiveRentals not implemented")
+}
+func (UnimplementedRentalServiceServer) DeleteRental(context.Context, *RentalIdRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteRental not implemented")
+}
+func (UnimplementedRentalServiceServer) UpdateType(context.Context, *UpdateTypeRequest) (*Rental, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateType not implemented")
 }
 func (UnimplementedRentalServiceServer) mustEmbedUnimplementedRentalServiceServer() {}
 func (UnimplementedRentalServiceServer) testEmbeddedByValue()                       {}
@@ -206,6 +286,96 @@ func _RentalService_ListRentals_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _RentalService_ListByUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RentalServiceServer).ListByUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RentalService_ListByUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RentalServiceServer).ListByUser(ctx, req.(*UserIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RentalService_ListByCar_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CarIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RentalServiceServer).ListByCar(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RentalService_ListByCar_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RentalServiceServer).ListByCar(ctx, req.(*CarIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RentalService_GetActiveRentals_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RentalServiceServer).GetActiveRentals(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RentalService_GetActiveRentals_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RentalServiceServer).GetActiveRentals(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RentalService_DeleteRental_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RentalIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RentalServiceServer).DeleteRental(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RentalService_DeleteRental_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RentalServiceServer).DeleteRental(ctx, req.(*RentalIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RentalService_UpdateType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateTypeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RentalServiceServer).UpdateType(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RentalService_UpdateType_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RentalServiceServer).UpdateType(ctx, req.(*UpdateTypeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // RentalService_ServiceDesc is the grpc.ServiceDesc for RentalService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -228,6 +398,26 @@ var RentalService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListRentals",
 			Handler:    _RentalService_ListRentals_Handler,
+		},
+		{
+			MethodName: "ListByUser",
+			Handler:    _RentalService_ListByUser_Handler,
+		},
+		{
+			MethodName: "ListByCar",
+			Handler:    _RentalService_ListByCar_Handler,
+		},
+		{
+			MethodName: "GetActiveRentals",
+			Handler:    _RentalService_GetActiveRentals_Handler,
+		},
+		{
+			MethodName: "DeleteRental",
+			Handler:    _RentalService_DeleteRental_Handler,
+		},
+		{
+			MethodName: "UpdateType",
+			Handler:    _RentalService_UpdateType_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

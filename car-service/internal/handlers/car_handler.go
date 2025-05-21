@@ -12,10 +12,10 @@ import (
 
 type CarHandler struct {
 	pb.UnimplementedCarServiceServer
-	usecase *usecase.CarUseCase
+	usecase usecase.CarUsecase
 }
 
-func NewCarHandler(u *usecase.CarUseCase) *CarHandler {
+func NewCarHandler(u usecase.CarUsecase) *CarHandler {
 	return &CarHandler{usecase: u}
 }
 
@@ -92,4 +92,68 @@ func mapCarToProto(car *models.Car) *pb.Car {
 		Latitude:  car.Latitude,
 		Longitude: car.Longitude,
 	}
+}
+
+func (h *CarHandler) GetAvailableCars(ctx context.Context, _ *pb.Empty) (*pb.CarList, error) {
+	cars, _ := h.usecase.GetAvailableCars()
+	return toCarList(cars), nil
+}
+
+func (h *CarHandler) GetCarsByCity(ctx context.Context, req *pb.CityRequest) (*pb.CarList, error) {
+	cars, _ := h.usecase.GetCarsByCity(req.City)
+	return toCarList(cars), nil
+}
+
+func (h *CarHandler) GetCarsByStatus(ctx context.Context, req *pb.StatusRequest) (*pb.CarList, error) {
+	cars, _ := h.usecase.GetCarsByStatus(req.Status)
+	return toCarList(cars), nil
+}
+
+func (h *CarHandler) FindByModel(ctx context.Context, req *pb.ModelRequest) (*pb.CarList, error) {
+	cars, _ := h.usecase.FindByModel(req.Model)
+	return toCarList(cars), nil
+}
+
+func (h *CarHandler) FindNearbyCars(ctx context.Context, req *pb.LocationRequest) (*pb.CarList, error) {
+	cars, _ := h.usecase.FindNearbyCars(req.Latitude, req.Longitude, req.RadiusKm)
+	return toCarList(cars), nil
+}
+
+func (h *CarHandler) ChangeStatus(ctx context.Context, req *pb.ChangeStatusRequest) (*pb.Car, error) {
+	err := h.usecase.ChangeStatus(ctx, req.Id, req.Status)
+	if err != nil {
+		return nil, err
+	}
+	car, err := h.usecase.GetByID(req.Id)
+	if err != nil {
+		return nil, err
+	}
+	return mapCarToProto(car), nil
+
+}
+
+func (h *CarHandler) GetCarLocation(ctx context.Context, req *pb.CarIdRequest) (*pb.LocationResponse, error) {
+	lat, lon, _ := h.usecase.GetCarLocation(req.Id)
+	return &pb.LocationResponse{Latitude: lat, Longitude: lon}, nil
+}
+
+func (h *CarHandler) UpdateLocation(ctx context.Context, req *pb.LocationUpdateRequest) (*pb.Car, error) {
+	err := h.usecase.UpdateLocation(ctx, req.Id, req.Latitude, req.Longitude)
+	if err != nil {
+		return nil, err
+	}
+	car, err := h.usecase.GetByID(req.Id)
+	if err != nil {
+		return nil, err
+	}
+	return mapCarToProto(car), nil
+
+}
+
+func toCarList(cars []*models.Car) *pb.CarList {
+	var list []*pb.Car
+	for _, c := range cars {
+		list = append(list, mapCarToProto(c))
+	}
+	return &pb.CarList{Cars: list}
 }

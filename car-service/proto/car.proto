@@ -43,10 +43,46 @@ message UpdateCarRequest {
   double longitude = 7;
 }
 
+message StatusRequest {
+  string status = 1;
+}
+message CityRequest {
+  string city = 1;
+}
+message ModelRequest {
+  string model = 1;
+}
+message LocationRequest {
+  double latitude = 1;
+  double longitude = 2;
+  double radius_km = 3;
+}
+message ChangeStatusRequest {
+  string id = 1;
+  string status = 2;
+}
+message LocationUpdateRequest {
+  string id = 1;
+  double latitude = 2;
+  double longitude = 3;
+}
+message LocationResponse {
+  double latitude = 1;
+  double longitude = 2;
+}
+
 service CarService {
   rpc CreateCar(CreateCarRequest) returns (Car);
   rpc GetCar(CarIdRequest) returns (Car);
   rpc UpdateCar(UpdateCarRequest) returns (Car);
   rpc DeleteCar(CarIdRequest) returns (Empty);
   rpc ListCars(Empty) returns (CarList);
+  rpc GetAvailableCars(Empty) returns (CarList);
+  rpc GetCarsByCity(CityRequest) returns (CarList);
+  rpc GetCarsByStatus(StatusRequest) returns (CarList);
+  rpc FindByModel(ModelRequest) returns (CarList);
+  rpc FindNearbyCars(LocationRequest) returns (CarList);
+  rpc ChangeStatus(ChangeStatusRequest) returns (Car);
+  rpc GetCarLocation(CarIdRequest) returns (LocationResponse);
+  rpc UpdateLocation(LocationUpdateRequest) returns (Car);
 }

@@ -5,6 +5,7 @@ import (
 	"net"
 
 	"github.com/Akan15/carrental3/rental-service/internal/handlers"
+	"github.com/Akan15/carrental3/rental-service/internal/nats"
 	"github.com/Akan15/carrental3/rental-service/internal/repository"
 	"github.com/Akan15/carrental3/rental-service/internal/usecase"
 	pb "github.com/Akan15/carrental3/rental-service/proto"
@@ -40,7 +41,15 @@ func main() {
 
 	db := InitMongo()
 	repo := repository.NewRentalRepository(db)
-	uc := usecase.NewRentalUseCase(repo)
+
+	publisher, err := nats.NewPublisher("nats://localhost:4222")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer publisher.Close()
+
+	uc := usecase.NewRentalUseCase(repo, publisher) // ✅ только один вызов
+
 	handler := handlers.NewRentalHandler(uc)
 
 	grpcServer := grpc.NewServer()

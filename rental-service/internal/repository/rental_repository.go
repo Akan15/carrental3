@@ -21,7 +21,6 @@ func NewRentalRepository(db *mongo.Database) *RentalRepository {
 }
 
 func (r *RentalRepository) Create(rental *models.Rental) (*models.Rental, error) {
-	rental.StartTime = time.Now()
 	res, err := r.collection.InsertOne(context.TODO(), rental)
 	if err != nil {
 		return nil, err
@@ -76,4 +75,64 @@ func (r *RentalRepository) List() ([]*models.Rental, error) {
 		}
 	}
 	return rentals, nil
+}
+
+func (r *RentalRepository) ListByUser(userID string) ([]*models.Rental, error) {
+	filter := bson.M{"user_id": userID}
+	return r.findByFilter(filter)
+}
+
+func (r *RentalRepository) ListByCar(carID string) ([]*models.Rental, error) {
+	filter := bson.M{"car_id": carID}
+	return r.findByFilter(filter)
+}
+
+func (r *RentalRepository) GetActive(userID, carID string) (*models.Rental, error) {
+	filter := bson.M{"user_id": userID, "car_id": carID, "end_time": bson.M{"$exists": false}}
+	var rental models.Rental
+	err := r.collection.FindOne(context.TODO(), filter).Decode(&rental)
+	return &rental, err
+}
+
+func (r *RentalRepository) Delete(id string) error {
+	objID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return err
+	}
+	_, err = r.collection.DeleteOne(context.TODO(), bson.M{"_id": objID})
+	return err
+}
+
+func (r *RentalRepository) UpdateType(id, newType string) (*models.Rental, error) {
+	objID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, err
+	}
+	_, err = r.collection.UpdateOne(context.TODO(), bson.M{"_id": objID}, bson.M{"$set": bson.M{"type": newType}})
+	if err != nil {
+		return nil, err
+	}
+	return r.GetByID(id)
+}
+
+func (r *RentalRepository) findByFilter(filter bson.M) ([]*models.Rental, error) {
+	cursor, err := r.collection.Find(context.TODO(), filter)
+	if err != nil {
+		return nil, err
+	}
+	defer cursor.Close(context.TODO())
+
+	var rentals []*models.Rental
+	for cursor.Next(context.TODO()) {
+		var rental models.Rental
+		if err := cursor.Decode(&rental); err == nil {
+			rentals = append(rentals, &rental)
+		}
+	}
+	return rentals, nil
+}
+
+func (r *RentalRepository) GetActiveRentals() ([]*models.Rental, error) {
+	filter := bson.M{"end_time": bson.M{"$exists": false}}
+	return r.findByFilter(filter)
 }

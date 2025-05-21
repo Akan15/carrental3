@@ -4,11 +4,14 @@ import (
 	"log"
 	"net"
 
-	"github.com/Akan15/carrental3/user-service/internal/email"
 	"github.com/Akan15/carrental3/user-service/internal/handlers"
+	natsPkg "github.com/Akan15/carrental3/user-service/internal/nats"
 	"github.com/Akan15/carrental3/user-service/internal/repository"
 	"github.com/Akan15/carrental3/user-service/internal/usecase"
+	emailPkg "github.com/Akan15/carrental3/user-service/internal/usecase/email"
+
 	pb "github.com/Akan15/carrental3/user-service/proto"
+
 	"github.com/joho/godotenv"
 
 	"google.golang.org/grpc"
@@ -27,7 +30,10 @@ func main() {
 	db := repository.InitMongo()
 	repo := repository.NewMongoUserRepo(db)
 
-	uc := usecase.NewUserUseCase(repo, email.SendEmail)
+	// ⬇️ Инициализация NATS
+	natsPkg.InitPublisher()
+
+	uc := usecase.NewUserUseCase(repo, emailPkg.SendEmail)
 	handler := handlers.NewUserHandler(uc)
 
 	grpcServer := grpc.NewServer()

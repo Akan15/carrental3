@@ -41,9 +41,91 @@ message VerifyResponse {
   string user_id = 1;
 }
 
+message ListUsersRequest {}
+
+message ListUsersResponse {
+  repeated GetUserResponse users = 1;
+}
+
+message UpdateUserRequest {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message UpdateUserResponse {
+  string message = 1;
+}
+
+message UpdatePasswordRequest {
+  string id = 1;
+  string old_password = 2;
+  string new_password = 3;
+}
+
+message UpdatePasswordResponse {
+  string message = 1;
+}
+
+message DeleteUserRequest {
+  string id = 1;
+}
+
+message DeleteUserResponse {
+  string message = 1;
+}
+
+message UpdateEmailRequest {
+  string id = 1;
+  string password = 2;
+  string new_email = 3;
+}
+message UpdateEmailResponse {
+  string message = 1;
+}
+
+message FindByNameRequest {
+  string name = 1;
+}
+message FindByNameResponse {
+  repeated GetUserResponse users = 1;
+}
+
+message ChangePasswordRequest {
+  string email = 1;
+  string old_password = 2;
+  string new_password = 3;
+}
+message ChangePasswordResponse {
+  string message = 1;
+}
+
+message RefreshTokenRequest {
+  string token = 1;
+}
+message RefreshTokenResponse {
+  string token = 1;
+}
+message ResendVerificationRequest {
+  string email = 1;
+}
+
+message ResendVerificationResponse {
+  string message = 1;
+}
+
 service UserService {
   rpc GetUser(GetUserRequest) returns (GetUserResponse);
   rpc Register(RegisterRequest) returns (RegisterResponse);
   rpc Login(LoginRequest) returns (LoginResponse);
   rpc Verify(VerifyRequest) returns (VerifyResponse);
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+  rpc UpdatePassword(UpdatePasswordRequest) returns (UpdatePasswordResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+  rpc UpdateEmail(UpdateEmailRequest) returns (UpdateEmailResponse);
+  rpc FindByName(FindByNameRequest) returns (FindByNameResponse);
+  rpc ChangePassword(ChangePasswordRequest) returns (ChangePasswordResponse);
+  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+  rpc ResendVerification(ResendVerificationRequest) returns (ResendVerificationResponse);
 }

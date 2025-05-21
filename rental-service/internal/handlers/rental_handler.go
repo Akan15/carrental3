@@ -69,3 +69,55 @@ func mapToProtoModel(m *models.Rental) *pb.Rental {
 		TotalPrice: m.TotalPrice,
 	}
 }
+
+func (h *RentalHandler) ListByUser(ctx context.Context, req *pb.UserIdRequest) (*pb.RentalList, error) {
+	rentals, err := h.usecase.ListByUser(req.UserId)
+	if err != nil {
+		return nil, err
+	}
+	var list []*pb.Rental
+	for _, r := range rentals {
+		list = append(list, mapToProtoModel(r))
+	}
+	return &pb.RentalList{Rentals: list}, nil
+}
+
+func (h *RentalHandler) ListByCar(ctx context.Context, req *pb.CarIdRequest) (*pb.RentalList, error) {
+	rentals, err := h.usecase.ListByCar(req.CarId)
+	if err != nil {
+		return nil, err
+	}
+	var list []*pb.Rental
+	for _, r := range rentals {
+		list = append(list, mapToProtoModel(r))
+	}
+	return &pb.RentalList{Rentals: list}, nil
+}
+
+func (h *RentalHandler) GetActiveRentals(ctx context.Context, _ *pb.Empty) (*pb.RentalList, error) {
+	rentals, err := h.usecase.GetActiveRentals()
+	if err != nil {
+		return nil, err
+	}
+	var list []*pb.Rental
+	for _, r := range rentals {
+		list = append(list, mapToProtoModel(r))
+	}
+	return &pb.RentalList{Rentals: list}, nil
+}
+
+func (h *RentalHandler) DeleteRental(ctx context.Context, req *pb.RentalIdRequest) (*pb.Empty, error) {
+	err := h.usecase.Delete(req.Id)
+	if err != nil {
+		return nil, err
+	}
+	return &pb.Empty{}, nil
+}
+
+func (h *RentalHandler) UpdateType(ctx context.Context, req *pb.UpdateTypeRequest) (*pb.Rental, error) {
+	rental, err := h.usecase.UpdateType(req.Id, req.Type)
+	if err != nil {
+		return nil, err
+	}
+	return mapToProtoModel(rental), nil
+}

@@ -5,15 +5,20 @@ import (
 	"time"
 
 	"github.com/Akan15/carrental3/rental-service/internal/models"
+	"github.com/Akan15/carrental3/rental-service/internal/nats"
 	"github.com/Akan15/carrental3/rental-service/internal/repository"
 )
 
 type RentalUseCase struct {
-	repo *repository.RentalRepository
+	repo          repository.RentalRepositoryInterface
+	NatsPublisher *nats.Publisher
 }
 
-func NewRentalUseCase(r *repository.RentalRepository) *RentalUseCase {
-	return &RentalUseCase{repo: r}
+func NewRentalUseCase(repo repository.RentalRepositoryInterface, publisher *nats.Publisher) *RentalUseCase {
+	return &RentalUseCase{
+		repo:          repo,
+		NatsPublisher: publisher,
+	}
 }
 
 func (u *RentalUseCase) Create(userID, carID, rentalType string) (*models.Rental, error) {
@@ -22,7 +27,21 @@ func (u *RentalUseCase) Create(userID, carID, rentalType string) (*models.Rental
 		CarID:  carID,
 		Type:   rentalType,
 	}
-	return u.repo.Create(rental)
+	r, err := u.repo.Create(rental)
+	if err != nil {
+		return nil, err
+	}
+
+	// Публикация события
+	if u.NatsPublisher != nil {
+		_ = u.NatsPublisher.PublishRentalCreated(nats.RentalCreatedEvent{
+			RentalID: r.ID.Hex(),
+			CarID:    carID,
+			Status:   "occupied",
+		})
+	}
+
+	return r, nil
 }
 
 func (u *RentalUseCase) End(id string) (*models.Rental, error) {
@@ -57,4 +76,28 @@ func (u *RentalUseCase) Get(id string) (*models.Rental, error) {
 
 func (u *RentalUseCase) List() ([]*models.Rental, error) {
 	return u.repo.List()
+}
+
+func (u *RentalUseCase) ListByUser(userID string) ([]*models.Rental, error) {
+	return u.repo.ListByUser(userID)
+}
+
+func (u *RentalUseCase) ListByCar(carID string) ([]*models.Rental, error) {
+	return u.repo.ListByCar(carID)
+}
+
+func (u *RentalUseCase) GetActive(userID, carID string) (*models.Rental, error) {
+	return u.repo.GetActive(userID, carID)
+}
+
+func (u *RentalUseCase) Delete(id string) error {
+	return u.repo.Delete(id)
+}
+
+func (u *RentalUseCase) UpdateType(id, rentalType string) (*models.Rental, error) {
+	return u.repo.UpdateType(id, rentalType)
+}
+
+func (u *RentalUseCase) GetActiveRentals() ([]*models.Rental, error) {
+	return u.repo.GetActiveRentals()
 }

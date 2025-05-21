@@ -413,6 +413,362 @@ func (x *UpdateCarRequest) GetLongitude() float64 {
 	return 0
 }
 
+type StatusRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *StatusRequest) Reset() {
+	*x = StatusRequest{}
+	mi := &file_proto_car_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *StatusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StatusRequest) ProtoMessage() {}
+
+func (x *StatusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_car_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StatusRequest.ProtoReflect.Descriptor instead.
+func (*StatusRequest) Descriptor() ([]byte, []int) {
+	return file_proto_car_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *StatusRequest) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+type CityRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	City          string                 `protobuf:"bytes,1,opt,name=city,proto3" json:"city,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CityRequest) Reset() {
+	*x = CityRequest{}
+	mi := &file_proto_car_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CityRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CityRequest) ProtoMessage() {}
+
+func (x *CityRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_car_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CityRequest.ProtoReflect.Descriptor instead.
+func (*CityRequest) Descriptor() ([]byte, []int) {
+	return file_proto_car_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *CityRequest) GetCity() string {
+	if x != nil {
+		return x.City
+	}
+	return ""
+}
+
+type ModelRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Model         string                 `protobuf:"bytes,1,opt,name=model,proto3" json:"model,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ModelRequest) Reset() {
+	*x = ModelRequest{}
+	mi := &file_proto_car_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ModelRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ModelRequest) ProtoMessage() {}
+
+func (x *ModelRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_car_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ModelRequest.ProtoReflect.Descriptor instead.
+func (*ModelRequest) Descriptor() ([]byte, []int) {
+	return file_proto_car_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *ModelRequest) GetModel() string {
+	if x != nil {
+		return x.Model
+	}
+	return ""
+}
+
+type LocationRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Latitude      float64                `protobuf:"fixed64,1,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude     float64                `protobuf:"fixed64,2,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	RadiusKm      float64                `protobuf:"fixed64,3,opt,name=radius_km,json=radiusKm,proto3" json:"radius_km,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LocationRequest) Reset() {
+	*x = LocationRequest{}
+	mi := &file_proto_car_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LocationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LocationRequest) ProtoMessage() {}
+
+func (x *LocationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_car_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LocationRequest.ProtoReflect.Descriptor instead.
+func (*LocationRequest) Descriptor() ([]byte, []int) {
+	return file_proto_car_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *LocationRequest) GetLatitude() float64 {
+	if x != nil {
+		return x.Latitude
+	}
+	return 0
+}
+
+func (x *LocationRequest) GetLongitude() float64 {
+	if x != nil {
+		return x.Longitude
+	}
+	return 0
+}
+
+func (x *LocationRequest) GetRadiusKm() float64 {
+	if x != nil {
+		return x.RadiusKm
+	}
+	return 0
+}
+
+type ChangeStatusRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Status        string                 `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ChangeStatusRequest) Reset() {
+	*x = ChangeStatusRequest{}
+	mi := &file_proto_car_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ChangeStatusRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ChangeStatusRequest) ProtoMessage() {}
+
+func (x *ChangeStatusRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_car_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ChangeStatusRequest.ProtoReflect.Descriptor instead.
+func (*ChangeStatusRequest) Descriptor() ([]byte, []int) {
+	return file_proto_car_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *ChangeStatusRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *ChangeStatusRequest) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
+type LocationUpdateRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Latitude      float64                `protobuf:"fixed64,2,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude     float64                `protobuf:"fixed64,3,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LocationUpdateRequest) Reset() {
+	*x = LocationUpdateRequest{}
+	mi := &file_proto_car_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LocationUpdateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LocationUpdateRequest) ProtoMessage() {}
+
+func (x *LocationUpdateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_car_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LocationUpdateRequest.ProtoReflect.Descriptor instead.
+func (*LocationUpdateRequest) Descriptor() ([]byte, []int) {
+	return file_proto_car_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *LocationUpdateRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *LocationUpdateRequest) GetLatitude() float64 {
+	if x != nil {
+		return x.Latitude
+	}
+	return 0
+}
+
+func (x *LocationUpdateRequest) GetLongitude() float64 {
+	if x != nil {
+		return x.Longitude
+	}
+	return 0
+}
+
+type LocationResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Latitude      float64                `protobuf:"fixed64,1,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude     float64                `protobuf:"fixed64,2,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LocationResponse) Reset() {
+	*x = LocationResponse{}
+	mi := &file_proto_car_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LocationResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LocationResponse) ProtoMessage() {}
+
+func (x *LocationResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_car_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LocationResponse.ProtoReflect.Descriptor instead.
+func (*LocationResponse) Descriptor() ([]byte, []int) {
+	return file_proto_car_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *LocationResponse) GetLatitude() float64 {
+	if x != nil {
+		return x.Latitude
+	}
+	return 0
+}
+
+func (x *LocationResponse) GetLongitude() float64 {
+	if x != nil {
+		return x.Longitude
+	}
+	return 0
+}
+
 var File_proto_car_proto protoreflect.FileDescriptor
 
 const file_proto_car_proto_rawDesc = "" +
@@ -445,7 +801,27 @@ const file_proto_car_proto_rawDesc = "" +
 	"\x04city\x18\x04 \x01(\tR\x04city\x12\x16\n" +
 	"\x06status\x18\x05 \x01(\tR\x06status\x12\x1a\n" +
 	"\blatitude\x18\x06 \x01(\x01R\blatitude\x12\x1c\n" +
-	"\tlongitude\x18\a \x01(\x01R\tlongitude2\xe1\x01\n" +
+	"\tlongitude\x18\a \x01(\x01R\tlongitude\"'\n" +
+	"\rStatusRequest\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\"!\n" +
+	"\vCityRequest\x12\x12\n" +
+	"\x04city\x18\x01 \x01(\tR\x04city\"$\n" +
+	"\fModelRequest\x12\x14\n" +
+	"\x05model\x18\x01 \x01(\tR\x05model\"h\n" +
+	"\x0fLocationRequest\x12\x1a\n" +
+	"\blatitude\x18\x01 \x01(\x01R\blatitude\x12\x1c\n" +
+	"\tlongitude\x18\x02 \x01(\x01R\tlongitude\x12\x1b\n" +
+	"\tradius_km\x18\x03 \x01(\x01R\bradiusKm\"=\n" +
+	"\x13ChangeStatusRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
+	"\x06status\x18\x02 \x01(\tR\x06status\"a\n" +
+	"\x15LocationUpdateRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1a\n" +
+	"\blatitude\x18\x02 \x01(\x01R\blatitude\x12\x1c\n" +
+	"\tlongitude\x18\x03 \x01(\x01R\tlongitude\"L\n" +
+	"\x10LocationResponse\x12\x1a\n" +
+	"\blatitude\x18\x01 \x01(\x01R\blatitude\x12\x1c\n" +
+	"\tlongitude\x18\x02 \x01(\x01R\tlongitude2\x83\x05\n" +
 	"\n" +
 	"CarService\x12,\n" +
 	"\tCreateCar\x12\x15.car.CreateCarRequest\x1a\b.car.Car\x12%\n" +
@@ -454,7 +830,16 @@ const file_proto_car_proto_rawDesc = "" +
 	"\tDeleteCar\x12\x11.car.CarIdRequest\x1a\n" +
 	".car.Empty\x12$\n" +
 	"\bListCars\x12\n" +
-	".car.Empty\x1a\f.car.CarListB4Z2github.com/Akan15/carrental3/car-service/proto;carb\x06proto3"
+	".car.Empty\x1a\f.car.CarList\x12,\n" +
+	"\x10GetAvailableCars\x12\n" +
+	".car.Empty\x1a\f.car.CarList\x12/\n" +
+	"\rGetCarsByCity\x12\x10.car.CityRequest\x1a\f.car.CarList\x123\n" +
+	"\x0fGetCarsByStatus\x12\x12.car.StatusRequest\x1a\f.car.CarList\x12.\n" +
+	"\vFindByModel\x12\x11.car.ModelRequest\x1a\f.car.CarList\x124\n" +
+	"\x0eFindNearbyCars\x12\x14.car.LocationRequest\x1a\f.car.CarList\x122\n" +
+	"\fChangeStatus\x12\x18.car.ChangeStatusRequest\x1a\b.car.Car\x12:\n" +
+	"\x0eGetCarLocation\x12\x11.car.CarIdRequest\x1a\x15.car.LocationResponse\x126\n" +
+	"\x0eUpdateLocation\x12\x1a.car.LocationUpdateRequest\x1a\b.car.CarB4Z2github.com/Akan15/carrental3/car-service/proto;carb\x06proto3"
 
 var (
 	file_proto_car_proto_rawDescOnce sync.Once
@@ -468,32 +853,55 @@ func file_proto_car_proto_rawDescGZIP() []byte {
 	return file_proto_car_proto_rawDescData
 }
 
-var file_proto_car_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_proto_car_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_proto_car_proto_goTypes = []any{
-	(*Car)(nil),              // 0: car.Car
-	(*CarIdRequest)(nil),     // 1: car.CarIdRequest
-	(*Empty)(nil),            // 2: car.Empty
-	(*CarList)(nil),          // 3: car.CarList
-	(*CreateCarRequest)(nil), // 4: car.CreateCarRequest
-	(*UpdateCarRequest)(nil), // 5: car.UpdateCarRequest
+	(*Car)(nil),                   // 0: car.Car
+	(*CarIdRequest)(nil),          // 1: car.CarIdRequest
+	(*Empty)(nil),                 // 2: car.Empty
+	(*CarList)(nil),               // 3: car.CarList
+	(*CreateCarRequest)(nil),      // 4: car.CreateCarRequest
+	(*UpdateCarRequest)(nil),      // 5: car.UpdateCarRequest
+	(*StatusRequest)(nil),         // 6: car.StatusRequest
+	(*CityRequest)(nil),           // 7: car.CityRequest
+	(*ModelRequest)(nil),          // 8: car.ModelRequest
+	(*LocationRequest)(nil),       // 9: car.LocationRequest
+	(*ChangeStatusRequest)(nil),   // 10: car.ChangeStatusRequest
+	(*LocationUpdateRequest)(nil), // 11: car.LocationUpdateRequest
+	(*LocationResponse)(nil),      // 12: car.LocationResponse
 }
 var file_proto_car_proto_depIdxs = []int32{
-	0, // 0: car.CarList.cars:type_name -> car.Car
-	4, // 1: car.CarService.CreateCar:input_type -> car.CreateCarRequest
-	1, // 2: car.CarService.GetCar:input_type -> car.CarIdRequest
-	5, // 3: car.CarService.UpdateCar:input_type -> car.UpdateCarRequest
-	1, // 4: car.CarService.DeleteCar:input_type -> car.CarIdRequest
-	2, // 5: car.CarService.ListCars:input_type -> car.Empty
-	0, // 6: car.CarService.CreateCar:output_type -> car.Car
-	0, // 7: car.CarService.GetCar:output_type -> car.Car
-	0, // 8: car.CarService.UpdateCar:output_type -> car.Car
-	2, // 9: car.CarService.DeleteCar:output_type -> car.Empty
-	3, // 10: car.CarService.ListCars:output_type -> car.CarList
-	6, // [6:11] is the sub-list for method output_type
-	1, // [1:6] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0,  // 0: car.CarList.cars:type_name -> car.Car
+	4,  // 1: car.CarService.CreateCar:input_type -> car.CreateCarRequest
+	1,  // 2: car.CarService.GetCar:input_type -> car.CarIdRequest
+	5,  // 3: car.CarService.UpdateCar:input_type -> car.UpdateCarRequest
+	1,  // 4: car.CarService.DeleteCar:input_type -> car.CarIdRequest
+	2,  // 5: car.CarService.ListCars:input_type -> car.Empty
+	2,  // 6: car.CarService.GetAvailableCars:input_type -> car.Empty
+	7,  // 7: car.CarService.GetCarsByCity:input_type -> car.CityRequest
+	6,  // 8: car.CarService.GetCarsByStatus:input_type -> car.StatusRequest
+	8,  // 9: car.CarService.FindByModel:input_type -> car.ModelRequest
+	9,  // 10: car.CarService.FindNearbyCars:input_type -> car.LocationRequest
+	10, // 11: car.CarService.ChangeStatus:input_type -> car.ChangeStatusRequest
+	1,  // 12: car.CarService.GetCarLocation:input_type -> car.CarIdRequest
+	11, // 13: car.CarService.UpdateLocation:input_type -> car.LocationUpdateRequest
+	0,  // 14: car.CarService.CreateCar:output_type -> car.Car
+	0,  // 15: car.CarService.GetCar:output_type -> car.Car
+	0,  // 16: car.CarService.UpdateCar:output_type -> car.Car
+	2,  // 17: car.CarService.DeleteCar:output_type -> car.Empty
+	3,  // 18: car.CarService.ListCars:output_type -> car.CarList
+	3,  // 19: car.CarService.GetAvailableCars:output_type -> car.CarList
+	3,  // 20: car.CarService.GetCarsByCity:output_type -> car.CarList
+	3,  // 21: car.CarService.GetCarsByStatus:output_type -> car.CarList
+	3,  // 22: car.CarService.FindByModel:output_type -> car.CarList
+	3,  // 23: car.CarService.FindNearbyCars:output_type -> car.CarList
+	0,  // 24: car.CarService.ChangeStatus:output_type -> car.Car
+	12, // 25: car.CarService.GetCarLocation:output_type -> car.LocationResponse
+	0,  // 26: car.CarService.UpdateLocation:output_type -> car.Car
+	14, // [14:27] is the sub-list for method output_type
+	1,  // [1:14] is the sub-list for method input_type
+	1,  // [1:1] is the sub-list for extension type_name
+	1,  // [1:1] is the sub-list for extension extendee
+	0,  // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_proto_car_proto_init() }
@@ -507,7 +915,7 @@ func file_proto_car_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_car_proto_rawDesc), len(file_proto_car_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -66,6 +66,167 @@ func (_c *UserRepository_CreateUser_Call) RunAndReturn(run func(*models.User) er
 	return _c
 }
 
+// DeleteUser provides a mock function with given fields: id
+func (_m *UserRepository) DeleteUser(id string) error {
+	ret := _m.Called(id)
+
+	if len(ret) == 0 {
+		panic("no return value specified for DeleteUser")
+	}
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(string) error); ok {
+		r0 = rf(id)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// UserRepository_DeleteUser_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'DeleteUser'
+type UserRepository_DeleteUser_Call struct {
+	*mock.Call
+}
+
+// DeleteUser is a helper method to define mock.On call
+//   - id string
+func (_e *UserRepository_Expecter) DeleteUser(id interface{}) *UserRepository_DeleteUser_Call {
+	return &UserRepository_DeleteUser_Call{Call: _e.mock.On("DeleteUser", id)}
+}
+
+func (_c *UserRepository_DeleteUser_Call) Run(run func(id string)) *UserRepository_DeleteUser_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(string))
+	})
+	return _c
+}
+
+func (_c *UserRepository_DeleteUser_Call) Return(_a0 error) *UserRepository_DeleteUser_Call {
+	_c.Call.Return(_a0)
+	return _c
+}
+
+func (_c *UserRepository_DeleteUser_Call) RunAndReturn(run func(string) error) *UserRepository_DeleteUser_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
+// FindByName provides a mock function with given fields: name
+func (_m *UserRepository) FindByName(name string) ([]*models.User, error) {
+	ret := _m.Called(name)
+
+	if len(ret) == 0 {
+		panic("no return value specified for FindByName")
+	}
+
+	var r0 []*models.User
+	var r1 error
+	if rf, ok := ret.Get(0).(func(string) ([]*models.User, error)); ok {
+		return rf(name)
+	}
+	if rf, ok := ret.Get(0).(func(string) []*models.User); ok {
+		r0 = rf(name)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]*models.User)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(string) error); ok {
+		r1 = rf(name)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// UserRepository_FindByName_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'FindByName'
+type UserRepository_FindByName_Call struct {
+	*mock.Call
+}
+
+// FindByName is a helper method to define mock.On call
+//   - name string
+func (_e *UserRepository_Expecter) FindByName(name interface{}) *UserRepository_FindByName_Call {
+	return &UserRepository_FindByName_Call{Call: _e.mock.On("FindByName", name)}
+}
+
+func (_c *UserRepository_FindByName_Call) Run(run func(name string)) *UserRepository_FindByName_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(string))
+	})
+	return _c
+}
+
+func (_c *UserRepository_FindByName_Call) Return(_a0 []*models.User, _a1 error) *UserRepository_FindByName_Call {
+	_c.Call.Return(_a0, _a1)
+	return _c
+}
+
+func (_c *UserRepository_FindByName_Call) RunAndReturn(run func(string) ([]*models.User, error)) *UserRepository_FindByName_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
+// GetAllUsers provides a mock function with no fields
+func (_m *UserRepository) GetAllUsers() ([]*models.User, error) {
+	ret := _m.Called()
+
+	if len(ret) == 0 {
+		panic("no return value specified for GetAllUsers")
+	}
+
+	var r0 []*models.User
+	var r1 error
+	if rf, ok := ret.Get(0).(func() ([]*models.User, error)); ok {
+		return rf()
+	}
+	if rf, ok := ret.Get(0).(func() []*models.User); ok {
+		r0 = rf()
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]*models.User)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func() error); ok {
+		r1 = rf()
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// UserRepository_GetAllUsers_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'GetAllUsers'
+type UserRepository_GetAllUsers_Call struct {
+	*mock.Call
+}
+
+// GetAllUsers is a helper method to define mock.On call
+func (_e *UserRepository_Expecter) GetAllUsers() *UserRepository_GetAllUsers_Call {
+	return &UserRepository_GetAllUsers_Call{Call: _e.mock.On("GetAllUsers")}
+}
+
+func (_c *UserRepository_GetAllUsers_Call) Run(run func()) *UserRepository_GetAllUsers_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run()
+	})
+	return _c
+}
+
+func (_c *UserRepository_GetAllUsers_Call) Return(_a0 []*models.User, _a1 error) *UserRepository_GetAllUsers_Call {
+	_c.Call.Return(_a0, _a1)
+	return _c
+}
+
+func (_c *UserRepository_GetAllUsers_Call) RunAndReturn(run func() ([]*models.User, error)) *UserRepository_GetAllUsers_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
 // GetUserByEmail provides a mock function with given fields: email
 func (_m *UserRepository) GetUserByEmail(email string) (*models.User, error) {
 	ret := _m.Called(email)
@@ -178,6 +339,99 @@ func (_c *UserRepository_GetUserByID_Call) Return(_a0 *models.User, _a1 error) *
 }
 
 func (_c *UserRepository_GetUserByID_Call) RunAndReturn(run func(string) (*models.User, error)) *UserRepository_GetUserByID_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
+// UpdateUser provides a mock function with given fields: user
+func (_m *UserRepository) UpdateUser(user *models.User) error {
+	ret := _m.Called(user)
+
+	if len(ret) == 0 {
+		panic("no return value specified for UpdateUser")
+	}
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(*models.User) error); ok {
+		r0 = rf(user)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// UserRepository_UpdateUser_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'UpdateUser'
+type UserRepository_UpdateUser_Call struct {
+	*mock.Call
+}
+
+// UpdateUser is a helper method to define mock.On call
+//   - user *models.User
+func (_e *UserRepository_Expecter) UpdateUser(user interface{}) *UserRepository_UpdateUser_Call {
+	return &UserRepository_UpdateUser_Call{Call: _e.mock.On("UpdateUser", user)}
+}
+
+func (_c *UserRepository_UpdateUser_Call) Run(run func(user *models.User)) *UserRepository_UpdateUser_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(*models.User))
+	})
+	return _c
+}
+
+func (_c *UserRepository_UpdateUser_Call) Return(_a0 error) *UserRepository_UpdateUser_Call {
+	_c.Call.Return(_a0)
+	return _c
+}
+
+func (_c *UserRepository_UpdateUser_Call) RunAndReturn(run func(*models.User) error) *UserRepository_UpdateUser_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
+// UpdateUserPassword provides a mock function with given fields: id, newHashed
+func (_m *UserRepository) UpdateUserPassword(id string, newHashed string) error {
+	ret := _m.Called(id, newHashed)
+
+	if len(ret) == 0 {
+		panic("no return value specified for UpdateUserPassword")
+	}
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(string, string) error); ok {
+		r0 = rf(id, newHashed)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// UserRepository_UpdateUserPassword_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'UpdateUserPassword'
+type UserRepository_UpdateUserPassword_Call struct {
+	*mock.Call
+}
+
+// UpdateUserPassword is a helper method to define mock.On call
+//   - id string
+//   - newHashed string
+func (_e *UserRepository_Expecter) UpdateUserPassword(id interface{}, newHashed interface{}) *UserRepository_UpdateUserPassword_Call {
+	return &UserRepository_UpdateUserPassword_Call{Call: _e.mock.On("UpdateUserPassword", id, newHashed)}
+}
+
+func (_c *UserRepository_UpdateUserPassword_Call) Run(run func(id string, newHashed string)) *UserRepository_UpdateUserPassword_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(string), args[1].(string))
+	})
+	return _c
+}
+
+func (_c *UserRepository_UpdateUserPassword_Call) Return(_a0 error) *UserRepository_UpdateUserPassword_Call {
+	_c.Call.Return(_a0)
+	return _c
+}
+
+func (_c *UserRepository_UpdateUserPassword_Call) RunAndReturn(run func(string, string) error) *UserRepository_UpdateUserPassword_Call {
 	_c.Call.Return(run)
 	return _c
 }
