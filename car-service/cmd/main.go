@@ -3,12 +3,15 @@ package main
 import (
 	"log"
 	"net"
+	"net/http"
 
 	"github.com/Akan15/carrental3/car-service/internal/handlers"
+	"github.com/Akan15/carrental3/car-service/internal/metrics"
 	"github.com/Akan15/carrental3/car-service/internal/nats"
 	"github.com/Akan15/carrental3/car-service/internal/repository"
 	"github.com/Akan15/carrental3/car-service/internal/usecase"
 	pb "github.com/Akan15/carrental3/car-service/proto"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -25,6 +28,14 @@ func main() {
 	uc := usecase.NewCarUseCase(repo)
 
 	handler := handlers.NewCarHandler(uc)
+
+	metrics.Init()
+
+	go func() {
+		http.Handle("/metrics", promhttp.Handler())
+		log.Println("📊 car-service метрики запущены на :2113/metrics")
+		log.Fatal(http.ListenAndServe(":2113", nil))
+	}()
 
 	grpcServer := grpc.NewServer()
 	pb.RegisterCarServiceServer(grpcServer, handler)

@@ -3,6 +3,7 @@ package handlers
 import (
 	"context"
 
+	"github.com/Akan15/carrental3/user-service/internal/metrics"
 	"github.com/Akan15/carrental3/user-service/internal/usecase"
 	pb "github.com/Akan15/carrental3/user-service/proto"
 
@@ -33,6 +34,8 @@ func (h *UserHandler) GetUser(ctx context.Context, req *pb.GetUserRequest) (*pb.
 }
 
 func (h *UserHandler) Register(ctx context.Context, req *pb.RegisterRequest) (*pb.RegisterResponse, error) {
+	metrics.RequestCount.WithLabelValues("Register", "POST").Inc()
+
 	err := h.usecase.Register(req.Name, req.Email, req.Password)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "registration failed: %v", err)

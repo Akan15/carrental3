@@ -19,6 +19,7 @@ services:
     build: ./user-service
     ports:
       - "50051:50051"
+      - "2112:2112"   # 🔥 важный порт для метрик Prometheus
     env_file:
       - ./user-service/.env
     depends_on:
@@ -27,11 +28,11 @@ services:
     networks:
       - carrental-net
 
-
   car-service:
     build: ./car-service
     ports:
       - "50052:50052"
+      - "2113:2113"
     depends_on:
       - mongo
     networks:
@@ -72,11 +73,30 @@ services:
       - nats
     networks:
       - carrental-net
-    
 
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - carrental-net
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    depends_on:
+      - prometheus
+    networks:
+      - carrental-net
 
 volumes:
   mongo-data:
+  grafana-storage:
 
 networks:
   carrental-net:

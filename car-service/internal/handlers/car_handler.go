@@ -3,6 +3,7 @@ package handlers
 import (
 	"context"
 
+	"github.com/Akan15/carrental3/car-service/internal/metrics"
 	"github.com/Akan15/carrental3/car-service/internal/models"
 	"github.com/Akan15/carrental3/car-service/internal/usecase"
 	pb "github.com/Akan15/carrental3/car-service/proto"
@@ -36,6 +37,8 @@ func (h *CarHandler) CreateCar(ctx context.Context, req *pb.CreateCarRequest) (*
 }
 
 func (h *CarHandler) GetCar(ctx context.Context, req *pb.CarIdRequest) (*pb.Car, error) {
+	metrics.RequestCount.WithLabelValues("GetCar", "GET").Inc()
+
 	car, err := h.usecase.GetByID(req.Id)
 	if err != nil {
 		return nil, err
