@@ -5,6 +5,7 @@ import (
 	"net"
 
 	"github.com/Akan15/carrental3/user-service/internal/handlers"
+	"github.com/Akan15/carrental3/user-service/internal/metrics"
 	natsPkg "github.com/Akan15/carrental3/user-service/internal/nats"
 	"github.com/Akan15/carrental3/user-service/internal/repository"
 	"github.com/Akan15/carrental3/user-service/internal/usecase"
@@ -20,7 +21,6 @@ import (
 
 func main() {
 	_ = godotenv.Load()
-
 	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatalf("Failed to listen: %v", err)
@@ -45,4 +45,6 @@ func main() {
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}
+
+	metrics.Init()
 }

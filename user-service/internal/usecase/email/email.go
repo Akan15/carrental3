@@ -7,15 +7,15 @@ import (
 
 func SendEmail(to, subject, body string) error {
 	from := os.Getenv("SMTP_FROM")
-	password := os.Getenv("SMTP_PASS")
-	smtpHost := os.Getenv("SMTP_HOST")
-	smtpPort := os.Getenv("SMTP_PORT")
+	pass := os.Getenv("SMTP_PASS")
+	host := os.Getenv("SMTP_HOST")
+	port := os.Getenv("SMTP_PORT")
 
-	auth := smtp.PlainAuth("", from, password, smtpHost)
+	auth := smtp.PlainAuth("", from, pass, host)
 
 	msg := []byte("To: " + to + "\r\n" +
 		"Subject: " + subject + "\r\n\r\n" +
 		body + "\r\n")
 
-	return smtp.SendMail(smtpHost+":"+smtpPort, auth, from, []string{to}, msg)
+	return smtp.SendMail(host+":"+port, auth, from, []string{to}, msg)
 }

@@ -2,11 +2,13 @@ package handlers
 
 import (
 	"context"
+	"net/http"
 	"time"
 
 	"github.com/Akan15/carrental3/rental-service/internal/models"
 	"github.com/Akan15/carrental3/rental-service/internal/usecase"
 	pb "github.com/Akan15/carrental3/rental-service/proto"
+	"github.com/gin-gonic/gin"
 )
 
 type RentalHandler struct {
@@ -18,12 +20,30 @@ func NewRentalHandler(u *usecase.RentalUseCase) *RentalHandler {
 	return &RentalHandler{usecase: u}
 }
 
-func (h *RentalHandler) CreateRental(ctx context.Context, req *pb.CreateRentalRequest) (*pb.Rental, error) {
-	rental, err := h.usecase.Create(req.UserId, req.CarId, req.Type)
-	if err != nil {
-		return nil, err
+func createRental(client pb.RentalServiceClient) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var req struct {
+			UserID string `json:"user_id"`
+			CarID  string `json:"car_id"`
+			Type   string `json:"type"`
+		}
+		if err := c.BindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
+			return
+		}
+
+		resp, err := client.CreateRental(context.Background(), &pb.CreateRentalRequest{
+			UserId: req.UserID,
+			CarId:  req.CarID,
+			Type:   req.Type,
+		})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, resp)
 	}
-	return mapToProtoModel(rental), nil
 }
 
 func (h *RentalHandler) EndRental(ctx context.Context, req *pb.EndRentalRequest) (*pb.Rental, error) {

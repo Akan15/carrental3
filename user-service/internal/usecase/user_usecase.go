@@ -50,7 +50,7 @@ func (u *UserUseCase) Register(name, email, password string) error {
 	}
 
 	// ⬇️ Отправка письма
-	message := fmt.Sprintf("Здравствуйте, %s!\nСпасибо за регистрацию в CarRental Akan.", name)
+	message := fmt.Sprintf("Здравствуйте, %s!\nСпасибо за регистрацию в CarRental.", name)
 	_ = u.sendEmail(email, "Добро пожаловать!", message)
 	natsPkg.PublishUserCreated(email)
 
